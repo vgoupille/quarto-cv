@@ -1,5 +1,6 @@
 ---
 title: CV - [First Name Last Name]
+author: "First Last"
 format:
   cv-typst: default
 date: last-modified # use last-modified for auto update, or set a specific date (e.g. 2026-01-01)
@@ -9,7 +10,7 @@ date-prefix: "Last updated: " # leave empty ("") to hide the prefix, or set a cu
 sidebar:
   photo: "assets/img/placeholder.png"
   phone: "XX XX XX XX XX"
-  email: "firstname.lastname@email.com"
+  email: "fname.lname@email.com"
   birthdate: "DD/MM/YYYY"
   city: "City, Country"
   nationality: "Nationality"

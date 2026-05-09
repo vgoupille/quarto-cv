@@ -10,3 +10,9 @@
 # Editor
 .vscode/
 .luarc.json
+
+/.quarto/
+**/*.quarto_ipynb
+
+# Generated PDFs
+*.pdf

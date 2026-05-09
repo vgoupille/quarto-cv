@@ -651,7 +651,7 @@
   sidebar: (
     "photo": "assets/img/placeholder.png",
     "phone": "XX XX XX XX XX",
-    "email": "firstname.lastname\@email.com".replace("\@", "@"),
+    "email": "fname.lname\@email.com".replace("\@", "@"),
     "birthdate": "DD/MM/YYYY",
     "city": "City, Country",
     "nationality": "Nationality",
