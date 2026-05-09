@@ -39,6 +39,8 @@ License](LICENSE).*
   `::: {.columns}`
 - **Auto date** — `last-modified` or a fixed date with a customizable
   prefix
+- **Auto-named PDF** — output automatically named
+  `CV_FirstName_LastName_YYYY-MM-DD.pdf` via a post-render script
 
 ------------------------------------------------------------------------
 
@@ -68,7 +70,14 @@ Then set `format: cv-typst: default` in your document frontmatter.
 quarto render template.qmd
 ```
 
-This produces `template.pdf`.
+This produces two files:
+
+- `template.pdf` — always up-to-date preview (tracked in git)
+- `CV_FirstName_LastName_YYYY-MM-DD.pdf` — the shareable export, named
+  from the `author` field and today’s date
+
+The rename is handled automatically by `rename_output.py` via a
+`_quarto.yml` post-render hook — no manual step required.
 
 ------------------------------------------------------------------------
 
@@ -88,7 +97,7 @@ dependency required**.
 **To regenerate the preview after updating your CV:**
 
 ``` bash
-# 1. Render the CV to PDF
+# 1. Render the CV to PDF (also auto-generates CV_Name_Date.pdf)
 quarto render template.qmd
 
 # 2. Convert the first page to PNG
@@ -103,9 +112,9 @@ quarto render README.qmd
 - [uv](https://docs.astral.sh/uv/getting-started/installation/) —
   install with `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
-The Python dependency (`pypdfium2`) is declared in `pyproject.toml` and
-installed automatically by `uv run` on first use — no virtual
-environment setup needed.
+The Python dependencies (`pypdfium2`, `pyyaml`) are declared in
+`pyproject.toml` and installed automatically by `uv run` on first use —
+no virtual environment setup needed.
 
 ------------------------------------------------------------------------
 
@@ -115,9 +124,15 @@ environment setup needed.
 
 ``` yaml
 title: "CV - First Name Last Name"
-date: last-modified       # or a fixed date: "2026-01-01"
-date-prefix: "Last updated: "  # leave "" to hide
+author: "First Last"              # used to name the output PDF
+date: last-modified               # or a fixed date: "2026-01-01"
+date-prefix: "Last updated: "    # leave "" to hide
 ```
+
+The `author` field drives the automatic PDF filename:
+`CV_First_Last_YYYY-MM-DD.pdf`. If `date` is set to a specific ISO date
+(e.g. `2026-01-15`), that date is used; otherwise the render date is
+used.
 
 ------------------------------------------------------------------------
 
@@ -562,19 +577,23 @@ in `cv-theme`.
 
     your-cv/
     ├── template.qmd              # Your CV document (edit this)
+    ├── _quarto.yml               # Project config — triggers post-render script
+    ├── rename_output.py          # Post-render: copies template.pdf → CV_Name_Date.pdf
+    ├── pyproject.toml            # Python deps (pypdfium2, pyyaml) for uv
+    ├── convert_preview.py        # Converts template.pdf → assets/img/preview.png
     ├── assets/
     │   └── img/
     │       └── photo.png         # Your profile photo
     ├── _extensions/
     │   └── cv/
     │       ├── _extension.yml    # Extension metadata
-    │       ├── template.typ      # Typst layout engine (895 lines)
+    │       ├── template.typ      # Typst layout engine
     │       ├── brand.yml         # Color/typography presets
     │       ├── columns.lua       # Multi-column Lua filter
     │       ├── timeline.lua      # Timeline Lua filter
     │       ├── colored-links.lua # Colored links Lua filter
     │       └── icons/            # SVG contact icons (auto-colorized)
-    └── template.pdf              # Generated output
+    └── template.pdf              # Latest render (preview — tracked in git)
 
 ------------------------------------------------------------------------
 
