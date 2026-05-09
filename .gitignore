@@ -1,9 +1,6 @@
 # Quarto cache
 .quarto/
 
-# Generated intermediate Typst file (from keep-typ: true)
-template.typ
-
 # Python virtual environment (uv)
 .venv/
 
