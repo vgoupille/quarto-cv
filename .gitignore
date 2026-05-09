@@ -14,5 +14,5 @@
 /.quarto/
 **/*.quarto_ipynb
 
-# Generated PDFs
-*.pdf
+# Generated PDFs (keep template.pdf as preview)
+CV_*.pdf

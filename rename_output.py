@@ -29,5 +29,6 @@ formatted_date = doc_date.strftime("%Y-%m-%d")
 src = Path("template.pdf")
 dst = Path(f"CV_{name}_{formatted_date}.pdf")
 if src.exists():
-    src.rename(dst)
+    import shutil
+    shutil.copy2(src, dst)
     print(f"  → {dst}")
