@@ -1,0 +1,32 @@
+title: CV Format
+author: Valentin Goupille
+version: 1.0.0
+description: "Two-column PDF CV/résumé format with modular sidebar, theme system, and timeline sections."
+quarto-required: ">=1.4.0"
+contributes:
+  formats:
+    typst:
+      # Bundled fonts (no system install required)
+      font-paths: ["_extensions/cv/fonts"]
+      # Custom template
+      template: template.typ
+
+      # Lua filters
+      filters:
+        - columns.lua
+        - timeline.lua
+        - colored-links.lua
+      
+      # Page layout (handled by template)
+      papersize: a4
+      
+      # Typography
+      mainfont: "Poppins"
+      fontsize: 10pt
+      
+      # Disable unnecessary elements
+      toc: false
+      number-sections: false
+      
+      # Keep intermediate file for debugging
+      keep-typ: true
