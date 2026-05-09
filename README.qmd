@@ -550,3 +550,18 @@ your-cv/
 - Typst (bundled with Quarto ≥ 1.4, no separate install needed)
 
 The fonts **Poppins** and **Inter** are bundled inside the extension — no system installation required. Any other font can be used by installing it on the system and setting `main-font` in `cv-theme`.
+
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request for bug fixes, new features, or improvements.
+
+```bash
+# Fork the repo, then:
+git clone https://github.com/your-username/quarto-cv.git
+cd quarto-cv
+quarto render template.qmd   # test your changes
+```
+
+This project is released under the [CC BY 4.0 License](LICENSE) — you are free to use, modify and distribute it, including for commercial purposes, as long as you credit the original author.
