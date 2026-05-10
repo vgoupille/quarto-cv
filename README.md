@@ -41,6 +41,8 @@ License](LICENSE).*
   prefix
 - **Auto-named PDF** — output automatically named
   `CV_FirstName_LastName_YYYY-MM-DD.pdf` via a post-render script
+- **Auto-compressed PDF** — the named PDF is compressed automatically
+  with `pikepdf` (no external tool required)
 
 ------------------------------------------------------------------------
 
@@ -77,18 +79,19 @@ This produces two files:
 - `CV_FirstName_LastName_YYYY-MM-DD.pdf` — the shareable export, named
   from the `author` field and today’s date
 
-The rename is handled automatically by `rename_output.py` via a
-`_quarto.yml` post-render hook — no manual step required.
+Both steps are handled automatically by `scripts/rename_output.py` and
+`scripts/compress_pdf.py` via `_quarto.yml` post-render hooks — no
+manual step required.
 
 ------------------------------------------------------------------------
 
 ## Preview Image Generation
 
-The `assets/img/preview.png` shown above is generated from
-`template.pdf` using a small Python script (`convert_preview.py`). It
-uses [**uv**](https://docs.astral.sh/uv/) — a fast Python package
-manager — to run the script in an isolated environment without requiring
-any manual `pip install`.
+The `assets/img/preview.png` shown above is generated from the rendered
+PDF using a small Python script (`scripts/convert_preview.py`). It uses
+[**uv**](https://docs.astral.sh/uv/) — a fast Python package manager —
+to run the script in an isolated environment without requiring any
+manual `pip install`.
 
 The PDF rendering is handled by
 [`pypdfium2`](https://pypdfium2.readthedocs.io/), which bundles the
@@ -98,11 +101,11 @@ dependency required**.
 **To regenerate the preview after updating your CV:**
 
 ``` bash
-# 1. Render the CV to PDF (also auto-generates CV_Name_Date.pdf)
+# 1. Render the CV to PDF (also auto-generates and compresses CV_Name_Date.pdf)
 quarto render template.qmd
 
 # 2. Convert the first page to PNG
-uv run convert_preview.py
+uv run scripts/convert_preview.py
 
 # 3. Re-render the README
 quarto render README.qmd
@@ -113,9 +116,9 @@ quarto render README.qmd
 - [uv](https://docs.astral.sh/uv/getting-started/installation/) —
   install with `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
-The Python dependencies (`pypdfium2`, `pyyaml`) are declared in
-`pyproject.toml` and installed automatically by `uv run` on first use —
-no virtual environment setup needed.
+The Python dependencies (`pypdfium2`, `pyyaml`, `pikepdf`) are declared
+in `pyproject.toml` and installed automatically by `uv run` on first use
+— no virtual environment setup needed.
 
 ------------------------------------------------------------------------
 
@@ -588,10 +591,12 @@ in `cv-theme`.
 
     your-cv/
     ├── template.qmd              # Your CV document (edit this)
-    ├── _quarto.yml               # Project config — triggers post-render script
-    ├── rename_output.py          # Post-render: copies template.pdf → CV_Name_Date.pdf
-    ├── pyproject.toml            # Python deps (pypdfium2, pyyaml) for uv
-    ├── convert_preview.py        # Converts template.pdf → assets/img/preview.png
+    ├── _quarto.yml               # Project config — triggers post-render scripts
+    ├── pyproject.toml            # Python deps (pypdfium2, pyyaml, pikepdf) for uv
+    ├── scripts/
+    │   ├── rename_output.py      # Post-render: copies <name>.pdf → CV_Name_Date.pdf
+    │   ├── compress_pdf.py       # Post-render: compresses CV_Name_Date.pdf (pikepdf)
+    │   └── convert_preview.py   # Converts <name>.pdf → assets/img/preview.png
     ├── assets/
     │   └── img/
     │       └── photo.png         # Your profile photo

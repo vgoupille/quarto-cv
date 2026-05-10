@@ -1,3 +1,5 @@
 project:
   type: default
-  post-render: rename_output.py
+  post-render:
+    - uv run scripts/rename_output.py
+    - uv run scripts/compress_pdf.py
