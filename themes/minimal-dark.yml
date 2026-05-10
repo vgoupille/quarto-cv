@@ -7,10 +7,12 @@ cv-theme:
   text-font: "Inter"
 
   sidebar:
-    title-color: "#f8fafc"   # section titles + photo border
-    text-color: "#e2e8f0"    # plain text, names, key labels
-    accent-color: "#cbd5e1"  # values, sub-items, secondary text
-    link-color: "#7dd3fc"    # phone, email, @username, website
+    title-color: "#FF8400"         # section titles
+    text-color: "#AFDB02"          # plain text, names, key labels
+    accent-color: "#155FBB"        # values, sub-items, secondary text
+    link-color: "#BA1634"          # phone, email, @username, website
+    icon-color: "#DD29B0"          # SVG icons
+    photo-border-color: "#FAFC7D"  # photo border stroke (uses link-color for contrast)
 
   main:
     title-color: "#1e293b"   # H1 — Education, Experience…

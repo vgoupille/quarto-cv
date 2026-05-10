@@ -7,10 +7,12 @@ cv-theme:
   text-font: "Poppins"
 
   sidebar:
-    title-color: "#2563eb"   # section titles + photo border
-    text-color: "#1e293b"    # plain text, names, key labels
-    accent-color: "#64748b"  # values, sub-items, secondary text
-    link-color: "#2563eb"    # phone, email, @username, website
+    title-color: "#2563eb"         # section titles
+    text-color: "#1e293b"          # plain text, names, key labels
+    accent-color: "#64748b"        # values, sub-items, secondary text
+    link-color: "#2563eb"          # phone, email, @username, website
+    icon-color: "#2563eb"          # SVG icons
+    photo-border-color: "#2563eb"  # photo border stroke
 
   main:
     title-color: "#2563eb"   # H1 — Education, Experience…

@@ -175,10 +175,12 @@
     title-font: "Inter",  // Global font for section titles
     text-font: "Inter",   // Global font for body text
     sidebar: (
-      title-color: rgb("#2563eb"),
-      text-color: rgb("#1e293b"),
-      accent-color: rgb("#64748b"),
-      link-color: rgb("#2563eb"),  // Sidebar link color
+      title-color: rgb("#2563eb"),       // section titles
+      text-color: rgb("#1e293b"),        // plain text, bullet names, key labels
+      accent-color: rgb("#64748b"),      // values, sub-items, secondary text
+      link-color: rgb("#2563eb"),        // phone, email, linkedin, github, website
+      icon-color: rgb("#2563eb"),        // SVG icons (defaults to title-color if omitted)
+      photo-border-color: rgb("#2563eb"), // photo border stroke
       title-size: 11pt,
       text-size: 9pt,
     ),
@@ -213,7 +215,9 @@
         if "text-color" in theme.sidebar { base.sidebar.text-color = col(theme.sidebar.text-color) }
         if "accent-color" in theme.sidebar { base.sidebar.accent-color = col(theme.sidebar.accent-color) }
         if "link-color" in theme.sidebar { base.sidebar.link-color = col(theme.sidebar.link-color) }
-        
+        if "icon-color" in theme.sidebar { base.sidebar.icon-color = col(theme.sidebar.icon-color) }
+        if "photo-border-color" in theme.sidebar { base.sidebar.photo-border-color = col(theme.sidebar.photo-border-color) }
+
         // Check for font sizes in sidebar (often in sidebar-defaults in YAML but can be mapped here)
         if "title-size" in theme.sidebar { base.sidebar.title-size = sz(theme.sidebar.title-size) }
         if "text-size" in theme.sidebar { base.sidebar.text-size = sz(theme.sidebar.text-size) }
@@ -335,8 +339,8 @@
 
       if content-val != none and content-val != "" and icon-data != none {
         
-        // Determine icon color: use style.icon-color if set (custom), otherwise theme title-color (default)
-        let target-color = style.at("icon-color", default: current-theme.sidebar.title-color)
+        // Determine icon color: use style.icon-color if set (per-section override), otherwise theme icon-color
+        let target-color = style.at("icon-color", default: current-theme.sidebar.icon-color)
         let icon-color-hex = target-color.to-hex()
         
         // Use regex to replace ANY fill attribute (currentColor, #hex, etc.) with the target color
@@ -380,7 +384,7 @@
         // photo-border: true/false, photo-border-width: thickness
         let show-border = style.at("photo-border", default: true)
         let border-width = style.at("photo-border-width", default: 2pt)
-        let stroke-val = if show-border { border-width + current-theme.sidebar.title-color } else { none }
+        let stroke-val = if show-border { border-width + current-theme.sidebar.photo-border-color } else { none }
         let photo-val = get-sidebar-data("photo")
         if photo-val != none and photo-val != "" {
           block(width: 100%)[
@@ -474,7 +478,7 @@
         }
       } else if "content" in section and section.content != "" {
         // Text block format
-        text[#section.content]
+        text(fill: current-theme.sidebar.text-color)[#section.content]
       }
       
       v(style.at("section-after", default: 0.3em))
@@ -866,6 +870,9 @@ $endif$
          $if(cv-theme.sidebar.title-color)$ "title-color": rgb("$cv-theme.sidebar.title-color$".replace("\#", "#")), $endif$
          $if(cv-theme.sidebar.text-color)$ "text-color": rgb("$cv-theme.sidebar.text-color$".replace("\#", "#")), $endif$
          $if(cv-theme.sidebar.accent-color)$ "accent-color": rgb("$cv-theme.sidebar.accent-color$".replace("\#", "#")), $endif$
+         $if(cv-theme.sidebar.link-color)$ "link-color": rgb("$cv-theme.sidebar.link-color$".replace("\#", "#")), $endif$
+         $if(cv-theme.sidebar.icon-color)$ "icon-color": rgb("$cv-theme.sidebar.icon-color$".replace("\#", "#")), $endif$
+         $if(cv-theme.sidebar.photo-border-color)$ "photo-border-color": rgb("$cv-theme.sidebar.photo-border-color$".replace("\#", "#")), $endif$
          $if(cv-theme.sidebar.title-size)$ "title-size": "$cv-theme.sidebar.title-size$", $endif$
          $if(cv-theme.sidebar.text-size)$ "text-size": "$cv-theme.sidebar.text-size$", $endif$
       ),
