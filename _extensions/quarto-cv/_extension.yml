@@ -14,6 +14,7 @@ contributes:
 
       # Lua filters
       filters:
+        - icons.lua
         - columns.lua
         - timeline.lua
         - colored-links.lua
