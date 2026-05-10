@@ -6,8 +6,9 @@ quarto-required: ">=1.4.0"
 contributes:
   formats:
     typst:
-      # Bundled fonts (no system install required)
-      font-paths: ["_extensions/cv/fonts"]
+      # Bundled fonts — both paths listed to handle dev (_extensions/quarto-cv/) and
+      # installed-via-quarto-add (_extensions/vgoupille/quarto-cv/) layouts
+      font-paths: ["_extensions/quarto-cv/fonts", "_extensions/vgoupille/quarto-cv/fonts"]
       # Custom template
       template: template.typ
 
