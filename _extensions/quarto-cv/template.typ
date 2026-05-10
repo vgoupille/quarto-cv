@@ -98,26 +98,27 @@
      let inset-left = 15pt  // Fixed inset value
      let dot-dx = -inset-left - dot-size  // Center dot on line
      
-     // Helper function that positions dot aligned with text baseline
-     // The dot is placed in an inline box that aligns with the text center
-     let add-dot(it) = {
-       // Create the heading with the dot positioned absolutely
-       // Using 0.35em centers the dot vertically regardless of font size
+     let user-dy = config.at("dy", default: 0pt)
+
+     let add-dot(it) = context {
+       let h = measure(it).height
        block([
-         #place(dx: dot-dx, dy: 0.65em, circle(radius: dot-size, fill: dot-color))
+         #place(dx: dot-dx, dy: h / 2 - dot-size + user-dy, circle(radius: dot-size, fill: dot-color))
          #it
        ])
      }
-     
+
      pad(left: 1em, block(
        width: 100%,
        inset: (left: inset-left),
        stroke: (left: line-width + line-color),
        breakable: true
      )[
-       // Apply timeline dot - h1 needs larger dy offset due to styling differences
-       #show heading.where(level: 1): it => if 1 in levels { 
-         block([#place(dx: dot-dx, dy: 0.6em, circle(radius: dot-size, fill: dot-color)) #it])
+       #show heading.where(level: 1): it => if 1 in levels {
+         context {
+           let h = measure(it).height
+           block([#place(dx: dot-dx, dy: h / 2 - dot-size + user-dy, circle(radius: dot-size, fill: dot-color)) #it])
+         }
        } else { it }
        #show heading.where(level: 2): it => if 2 in levels { add-dot(it) } else { it }
        #show heading.where(level: 3): it => if 3 in levels { add-dot(it) } else { it }
@@ -521,7 +522,7 @@
 
     // Timeline Configuration
     let timeline-dx = if layout-config != none and "timeline" in layout-config and "dx" in layout-config.timeline { layout-config.timeline.dx } else { -1.7em }
-    let timeline-dy = if layout-config != none and "timeline" in layout-config and "dy" in layout-config.timeline { layout-config.timeline.dy } else { 0.25em }
+    let timeline-dy = if layout-config != none and "timeline" in layout-config and "dy" in layout-config.timeline { layout-config.timeline.dy } else { 0pt }
     
     // Advanced Timeline Style
     let dot-size = if layout-config != none and "timeline" in layout-config and "dot-size" in layout-config.timeline { layout-config.timeline.dot-size } else { 2pt }
