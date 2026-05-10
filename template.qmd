@@ -4,9 +4,23 @@ author: "First Last"
 format:
   quarto-cv-typst: default
 date: last-modified # use last-modified for auto update, or set a specific date (e.g. 2026-01-01)
-date-prefix: "Last updated: " # leave empty ("") to hide the prefix, or set a custom text
+date-prefix: "Last updated: " # leave empty ("") to hide the prefix
 
-# --- Sidebar data ---
+# =============================================================================
+# STEP 1 — Choose a theme (uncomment one line)
+# =============================================================================
+# Each theme sets colors, fonts, spacing and layout.
+# Only one line should be active at a time.
+metadata-files:
+  # - themes/classic-blue.yml    # blue professional (default)
+  # - themes/forest-green.yml    # natural green
+  - themes/minimal-dark.yml    # dark sidebar
+  # - themes/warm-terracotta.yml # earthy terracotta
+
+# =============================================================================
+# STEP 2 — Your personal info
+# =============================================================================
+# Fields not listed here are simply hidden. Remove any line you don't need.
 sidebar:
   photo: "assets/img/placeholder.png"
   phone: "XX XX XX XX XX"
@@ -15,60 +29,49 @@ sidebar:
   city: "City, Country"
   nationality: "Nationality"
   website: "https://www.mywebsite.com"
-# website-display: "My Website" # Optional: custom display text
+  # website-display: "My Website" # Optional: custom display text for the link
   permit: "Driving License B"
   linkedin: "https://linkedin.com/in/username"
-  linkedin-display: "\\@username" # Alternative text
+  linkedin-display: "\\@username" # Optional: custom display text
   github: "https://github.com/username"
-  github-display: "\\@username" # Alternative text
+  github-display: "\\@username"   # Optional: custom display text
 
-# --- Default style configuration ---
-# --- Global Theme (Fonts, Colors) ---
-cv-theme:
-  main-font: "Poppins"  # Global font
-  title-font: "Poppins"  # Global font for sidebar section titles
-  text-font: "Poppins"   # Global font for sidebar text
-
-  sidebar:
-    title-color: "#2563eb"    # Blue (Section titles, photo border)
-    text-color: "#1e293b"     # Dark gray (Main text)
-    accent-color: "#64748b"   # Medium gray (Items)
-    link-color: "#2563eb"
-
-  main:
-    title-color: "#2563eb"    # Blue (Main titles)
-    subtitle-color: "#1e293b" # Dark gray (Subtitles)
-    text-color: "#1e293b"     # Body text
-    # link-color: none        # No default color → {color="..."} in markdown works
-  headings:
-    h1: 14pt    # Main heading (Education, Experience, etc.)
-    h2: 11pt    # Subtitles (Position, Degree)
-    h3: 10pt    # Details (Company, School, Dates)
-    normal: 10pt # Body text
-    # h4: 9pt   # Optional
-    # h5-h6: 8pt # Optional
-
-# --- Default Sidebar Configuration ---
-
-sidebar-defaults:
-  text-size: 9pt
-  title-size: 11pt
-  icon-size: 11pt
-  title-after: 1em      # Space after section title
-  item-after: 1em       # Space after each item
-  section-after: 3em    # Space after each section
-
-# --- Sidebar sections (order = display order) ---
+# =============================================================================
+# STEP 3 — Sidebar sections (reorder or comment out to hide)
+# =============================================================================
+# - Change the order of sections by moving blocks up or down.
+# - Comment out an entire block (- id: ...) to hide that section.
+# - Each section accepts a style: block to override spacing, font, colors.
+#   See the ADVANCED section below or the README for all style options.
+#
+# You can also add your own custom sections with any id and title:
+#
+#   - id: my-section
+#     title: "My Custom Section"
+#     items:
+#       - "Free text item"
+#       - name: "Key"
+#         value: "Value"
+#       - name: "Category"
+#         subitems:
+#           - "Sub-item 1"
+#           - "Sub-item 2"
+#
 sidebar-sections:
+
+  # --- Profile photo ---
   - id: photo
     style:
       section-before: 2em
       photo-size: 100pt
-      photo-radius: 50%
-      photo-border: true          # true/false to show/hide border
-      photo-border-width: 4pt     # Border thickness
+      photo-radius: 50%         # 50% = circle, 0% = square
+      photo-border: true        # true/false
+      photo-border-width: 4pt
       section-after: 3em
 
+  # --- Contact info (uses sidebar: fields above) ---
+  # Available types: phone, email, birthdate, city, nationality, permit,
+  #                  website, linkedin, github
   - id: contact
     title: "Contact"
     items:
@@ -82,18 +85,11 @@ sidebar-sections:
     style:
       item-after: 0em
       section-after: 3em
-      #icon-color: "#ff9500"  # Orange icons for this section
-      #icon-size: 10pt
-      #title-size: 18pt
+      # icon-color: "#ff9500"  # Override icon color for this section only
+      # icon-size: 10pt
+      # title-size: 18pt
 
-
-  #- id: networks
-  #  title: "Networks"
-  #  items:
-  #    - type: linkedin
-  #    - type: github
-
-
+  # --- Free text + link (e.g. website callout) ---
   - id: details
     title: "More Info"
     items:
@@ -102,6 +98,7 @@ sidebar-sections:
     style:
       text-size: 9.5pt
 
+  # --- Language / level pairs ---
   - id: languages
     title: "Languages"
     items:
@@ -111,6 +108,48 @@ sidebar-sections:
         value: "[Level]"
     style:
       text-size: 10.5pt
+
+  # --- Plain bullet list ---
+  - id: strengths
+    title: "Strengths"
+    items:
+      - "[Strength 1]"
+      - "[Strength 2]"
+      - "[Strength 3]"
+      - "[Strength 4]"
+    style:
+      text-size: 10.5pt
+
+  # --- Nested interests (name + subitems) ---
+  - id: interests
+    title: "Interests"
+    items:
+      - name: "[Interest 1]"
+        subitems:
+          - "[Sub-interest 1]"
+          - "[Sub-interest 2]"
+          - "[Sub-interest 3]"
+      - name: "[Interest 2]"
+        subitems:
+          - "[Sub-interest 1]"
+          - "[Sub-interest 2]"
+      - name: "[Interest 3]"
+    style:
+      text-size: 10.5pt
+
+  # --- Skill categories (category: label + inline list) ---
+  - id: skills
+    title: "IT Skills"
+    items:
+      - category: "Languages"
+        items: "[Language 1, Language 2]"
+      - category: "Tools"
+        items: "[Tool 1, Tool 2]"
+    style:
+      text-size: 10.5pt
+      section-before: 5em
+
+  # --- Example: commented-out optional sections ---
 
   # - id: certifications
   #   title: "Certifications"
@@ -122,59 +161,71 @@ sidebar-sections:
   #   style:
   #     text-size: 8pt
 
-  - id: strengths
-    title: "Strengths"
-    items:
-      - "[Strength 1]"
-      - "[Strength 2]"
-      - "[Strength 3]"
-      - "[Strength 4]"
-    style:
-      text-size: 10.5pt
+  # - id: networks
+  #   title: "Networks"
+  #   items:
+  #     - type: linkedin
+  #     - type: github
 
-  - id: interests
-    title: "Interests"
-    items:
-      - name: "[Interest 1]"
-        subitems:
-          - "[Sub-interest 1]"
-          - "[Sub-interest 2]"
-          - "[Sub-interest 3]"
+# =============================================================================
+# ADVANCED — Override theme values (uncomment to customize)
+# =============================================================================
+# These blocks let you fine-tune the active theme without editing the theme
+# file. Only the keys you define here are overridden — the rest come from
+# the theme preset chosen in STEP 1.
 
-      - name: "[Interest 2]"
-        subitems:
-          - "[Sub-interest 1]"
-          - "[Sub-interest 2]"
-      - name: "[Interest 3]"
-    style:
-      text-size: 10.5pt
+# --- Colors & fonts ---
+# cv-theme:
+#   main-font: "Poppins"        # main content font (Inter also bundled)
+#   title-font: "Poppins"       # sidebar section title font
+#   text-font: "Poppins"        # sidebar body text font
+#
+#   sidebar:                    # colors for the LEFT column
+#     title-color: "#2563eb"    # → section titles (Contact, Languages…) + photo border
+#     text-color: "#1e293b"     # → plain items, names, key labels
+#     accent-color: "#64748b"   # → values (language levels), sub-items ◦
+#     link-color: "#2563eb"     # → phone, email, @username, website links
+#
+#   main:                       # colors for the RIGHT column
+#     title-color: "#2563eb"    # → H1 headings (Education, Experience…)
+#     subtitle-color: "#1e293b" # → H2 headings (Position, Degree…)
+#     text-color: "#1e293b"     # → body text
+#     # link-color: none        # leave unset → use {color="..."} on inline links
+#
+#   headings:                   # font sizes in the right column
+#     h1: 14pt                  # section titles
+#     h2: 11pt                  # entry titles
+#     h3: 10pt                  # details (company, dates…)
+#     normal: 10pt
+#     # h4: 9pt
+#     # h5-h6: 8pt
 
-  - id: skills
-    title: "IT Skills"
-    items:
-      - category: "Languages"
-        items: "[Language 1, Language 2]"
-      - category: "Tools"
-        items: "[Tool 1, Tool 2]"
-    style:
-      text-size: 10.5pt
+# --- Sidebar spacing (global defaults for all sections) ---
+# sidebar-defaults:
+#   text-size: 9pt
+#   title-size: 11pt
+#   icon-size: 11pt
+#   title-after: 1em           # space below section title
+#   item-after: 1em            # space between items
+#   section-after: 3em         # space below entire section
 
-cv-layout:
-  sidebar-width: 30%      # Left column width (e.g. 30%, 5cm, 1fr)
-  main-width: 2.5fr       # Right column width
-  gutter: 1cm             # Space between columns
-  sidebar-bg: "#f1f5f9"   # Left column background color (light gray)
-  main-bg: "#ffffff"      # Right column background color (white)
-  margins:                # Document margins
-    top: 0.5cm
-    bottom: 0.5cm
-    left: 0.5cm
-    right: 0.5cm
-  timeline:
-    dot-size: "2pt"    # Dot size
-    line-width: "1pt"  # Line thickness
-    # dot-color: "#ff0000" # Dot color (optional)
-    # line-color: "#00ff00" # Line color (optional)
+# --- Layout & page ---
+# cv-layout:
+#   sidebar-width: 30%         # e.g. 30%, 5cm, 1fr
+#   main-width: 2.5fr
+#   gutter: 1cm                # space between columns
+#   sidebar-bg: "#f1f5f9"
+#   main-bg: "#ffffff"
+#   margins:
+#     top: 0.5cm
+#     bottom: 0.5cm
+#     left: 0.5cm
+#     right: 0.5cm
+#   timeline:
+#     dot-size: "3pt"
+#     line-width: "1pt"
+#     # dot-color: "#2563eb"
+#     # line-color: "#94a3b8"
 ---
 
 ```{=typst}
@@ -195,7 +246,7 @@ cv-layout:
 
 # Education
 
-::: {.timeline}
+::: {.timeline }
 
 ## YYYY - YYYY | [Degree Title]
 
@@ -217,7 +268,7 @@ cv-layout:
 
 # Professional Experience
 
-::: {.timeline}
+::: {.timeline levels="2,3,4"}
 
 ## Mon. YYYY - Mon. YYYY | [Job Title]
 
@@ -225,7 +276,7 @@ cv-layout:
 
 [Description of the mission and tasks performed ([Project Name]).]
 
-## Mon. YYYY - Mon. YYYY | [Job Title]
+#### Mon. YYYY - Mon. YYYY | [Job Title]
 
 *[Lab / Organization, City]*
 
@@ -237,7 +288,7 @@ cv-layout:
 
 [Description of the mission and tasks performed ([Project Name]).]
 
-## YYYY | [Experience Title] (X days)
+### YYYY | [Experience Title] (X days)
 
 *[Dr Name (Specialty), City]*
 

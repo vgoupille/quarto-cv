@@ -1,0 +1,48 @@
+# Theme: Warm Terracotta
+# Earthy terracotta — warm and distinctive
+
+cv-theme:
+  main-font: "Poppins"
+  title-font: "Poppins"
+  text-font: "Poppins"
+
+  sidebar:
+    title-color: "#9a3412"   # section titles + photo border
+    text-color: "#431407"    # plain text, names, key labels
+    accent-color: "#c2410c"  # values, sub-items, secondary text
+    link-color: "#ea580c"    # phone, email, @username, website
+
+  main:
+    title-color: "#9a3412"   # H1 — Education, Experience…
+    subtitle-color: "#1c0a00"# H2 — Position, Degree…
+    text-color: "#1c0a00"    # body text
+
+  headings:
+    h1: 14pt
+    h2: 11pt
+    h3: 10pt
+    normal: 10pt
+
+cv-layout:
+  sidebar-width: 30%
+  main-width: 2.5fr
+  gutter: 1cm
+  sidebar-bg: "#fff7ed"      # sidebar background
+  main-bg: "#fffbf7"         # main content background
+  margins:
+    top: 0.5cm
+    bottom: 0.5cm
+    left: 0.5cm
+    right: 0.5cm
+  timeline:
+    dot-size: "3pt"
+    line-width: "1pt"
+    dot-color: "#9a3412"     # timeline dots
+
+sidebar-defaults:
+  text-size: 9.5pt
+  title-size: 11.5pt
+  icon-size: 11pt
+  title-after: 1.1em
+  item-after: 1em
+  section-after: 3.5em

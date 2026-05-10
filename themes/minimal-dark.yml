@@ -1,0 +1,48 @@
+# Theme: Minimal Dark
+# Dark sidebar — high contrast, modern
+
+cv-theme:
+  main-font: "Inter"
+  title-font: "Inter"
+  text-font: "Inter"
+
+  sidebar:
+    title-color: "#f8fafc"   # section titles + photo border
+    text-color: "#e2e8f0"    # plain text, names, key labels
+    accent-color: "#cbd5e1"  # values, sub-items, secondary text
+    link-color: "#7dd3fc"    # phone, email, @username, website
+
+  main:
+    title-color: "#1e293b"   # H1 — Education, Experience…
+    subtitle-color: "#334155"# H2 — Position, Degree…
+    text-color: "#334155"    # body text
+
+  headings:
+    h1: 14pt
+    h2: 11pt
+    h3: 10pt
+    normal: 10pt
+
+cv-layout:
+  sidebar-width: 30%
+  main-width: 2.5fr
+  gutter: 1cm
+  sidebar-bg: "#1e293b"      # sidebar background
+  main-bg: "#ffffff"         # main content background
+  margins:
+    top: 0.5cm
+    bottom: 0.5cm
+    left: 0.5cm
+    right: 0.5cm
+  timeline:
+    dot-size: "3pt"
+    line-width: "1pt"
+    dot-color: "#334155"     # timeline dots
+
+sidebar-defaults:
+  text-size: 8.5pt
+  title-size: 10pt
+  icon-size: 10pt
+  title-after: 0.8em
+  item-after: 0.7em
+  section-after: 2.5em

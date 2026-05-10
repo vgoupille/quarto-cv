@@ -1,0 +1,48 @@
+# Theme: Forest Green
+# Natural green — calm and organic
+
+cv-theme:
+  main-font: "Poppins"
+  title-font: "Poppins"
+  text-font: "Poppins"
+
+  sidebar:
+    title-color: "#166534"   # section titles + photo border
+    text-color: "#14532d"    # plain text, names, key labels
+    accent-color: "#4d7c0f"  # values, sub-items, secondary text
+    link-color: "#15803d"    # phone, email, @username, website
+
+  main:
+    title-color: "#166534"   # H1 — Education, Experience…
+    subtitle-color: "#1a2e05"# H2 — Position, Degree…
+    text-color: "#1a2e05"    # body text
+
+  headings:
+    h1: 14pt
+    h2: 11pt
+    h3: 10pt
+    normal: 10pt
+
+cv-layout:
+  sidebar-width: 30%
+  main-width: 2.5fr
+  gutter: 1cm
+  sidebar-bg: "#f0fdf4"      # sidebar background
+  main-bg: "#ffffff"         # main content background
+  margins:
+    top: 0.5cm
+    bottom: 0.5cm
+    left: 0.5cm
+    right: 0.5cm
+  timeline:
+    dot-size: "3pt"
+    line-width: "1pt"
+    dot-color: "#166534"     # timeline dots
+
+sidebar-defaults:
+  text-size: 9pt
+  title-size: 11pt
+  icon-size: 11pt
+  title-after: 1.2em
+  item-after: 1.1em
+  section-after: 3.5em

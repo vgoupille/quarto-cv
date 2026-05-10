@@ -355,16 +355,16 @@
           {
             // Special handling for links
             if item-type == "phone" {
-              text(font: style.text-font, size: style.text-size)[#link("tel:" + content-val)[#content-val]]
+              text(font: style.text-font, size: style.text-size, fill: current-theme.sidebar.link-color)[#link("tel:" + content-val)[#content-val]]
             } else if item-type == "email" {
-              text(font: style.text-font, size: style.text-size)[#link("mailto:" + content-val)[#content-val]]
+              text(font: style.text-font, size: style.text-size, fill: current-theme.sidebar.link-color)[#link("mailto:" + content-val)[#content-val]]
             } else if item-type in ("website", "linkedin", "github") {
               let display-val = get-sidebar-data(item-type + "-display")
               let default-label = if item-type == "linkedin" { "LinkedIn" } else if item-type == "github" { "GitHub" } else if item-type == "website" { content-val.replace("https://", "").replace("http://", "") } else { content-val }
               let label = if display-val != none { display-val } else { default-label }
-              text(font: style.text-font, size: style.text-size)[#link(content-val)[#label]]
+              text(font: style.text-font, size: style.text-size, fill: current-theme.sidebar.link-color)[#link(content-val)[#label]]
             } else {
-              text(font: style.text-font, size: style.text-size)[#content-val]
+              text(font: style.text-font, size: style.text-size, fill: current-theme.sidebar.text-color)[#content-val]
             }
           }
         )
@@ -403,8 +403,9 @@
 
     // Generic renderer for custom sections - supports all item formats
     let render-custom-section(section, style) = {
+      v(style.at("section-before", default: 0pt))
       let has-title = "title" in section and section.title != ""
-      
+
       // Direct title rendering with explicit zero paragraph spacing
       if has-title {
         block(above: 0pt, below: style.at("title-after", default: 0.1em))[
@@ -440,13 +441,13 @@
               ]
             } else if "name" in item {
               // Name + value OR name + subitems format
-              let item-color = style.at("item-color", default: rgb("#64748b"))
-              let subitem-color = style.at("subitem-color", default: rgb("#94a3b8"))
-              
+              let item-color = style.at("item-color", default: current-theme.sidebar.accent-color)
+              let subitem-color = style.at("subitem-color", default: current-theme.sidebar.accent-color)
+
               if "subitems" in item and item.subitems != none {
                 // Name + subitems
                 box[
-                  #text(font: style.text-font)[• #item.name]
+                  #text(font: style.text-font, fill: current-theme.sidebar.text-color)[• #item.name]
                   #for subitem in item.subitems {
                     linebreak()
                     h(0.8em)
@@ -455,15 +456,15 @@
                 ]
               } else if "value" in item and item.value != "" {
                 // Name : value
-                box[#text(font: style.text-font, weight: "semibold")[#item.name] : #text(font: style.text-font, fill: item-color)[#item.value]]
+                box[#text(font: style.text-font, weight: "semibold", fill: current-theme.sidebar.text-color)[#item.name] : #text(font: style.text-font, fill: item-color)[#item.value]]
               } else {
                 // Just name
-                text(font: style.text-font)[• #item.name]
+                text(font: style.text-font, fill: current-theme.sidebar.text-color)[• #item.name]
               }
             } else { none }
           } else if item != "" {
             // Simple list format
-            text(font: style.text-font)[• #item]
+            text(font: style.text-font, fill: current-theme.sidebar.text-color)[• #item]
           } else { none }
         }).filter(x => x != none)
         
@@ -797,6 +798,7 @@ $if(sidebar-sections)$
         $if(sidebar-sections.style.section-before)$"section-before": eval("$sidebar-sections.style.section-before$"),$endif$
         $if(sidebar-sections.style.category-size)$"category-size": eval("$sidebar-sections.style.category-size$"),$endif$
         $if(sidebar-sections.style.category-color)$"category-color": rgb("$sidebar-sections.style.category-color$".replace("\#", "#")),$endif$
+        $if(sidebar-sections.style.category-weight)$"category-weight": "$sidebar-sections.style.category-weight$",$endif$
         $if(sidebar-sections.style.item-color)$"item-color": rgb("$sidebar-sections.style.item-color$".replace("\#", "#")),$endif$
         $if(sidebar-sections.style.subitem-color)$"subitem-color": rgb("$sidebar-sections.style.subitem-color$".replace("\#", "#")),$endif$
       ),
@@ -856,10 +858,10 @@ $endif$
     $endif$
   ),
   theme: (
+    $if(cv-theme.main-font)$ "main-font": "$cv-theme.main-font$", $else$$if(brand.typography.base.family)$ "main-font": "$brand.typography.base.family$", $endif$$endif$
+    $if(cv-theme.title-font)$ "title-font": "$cv-theme.title-font$", $else$$if(brand.typography.headings.family)$ "title-font": "$brand.typography.headings.family$", $endif$$endif$
+    $if(cv-theme.text-font)$ "text-font": "$cv-theme.text-font$", $else$$if(brand.typography.base.family)$ "text-font": "$brand.typography.base.family$", $endif$$endif$
     $if(cv-theme)$
-      $if(cv-theme.main-font)$ "main-font": "$cv-theme.main-font$", $endif$
-      $if(cv-theme.title-font)$ "title-font": "$cv-theme.title-font$", $endif$
-      $if(cv-theme.text-font)$ "text-font": "$cv-theme.text-font$", $endif$
       "sidebar": (
          $if(cv-theme.sidebar.title-color)$ "title-color": rgb("$cv-theme.sidebar.title-color$".replace("\#", "#")), $endif$
          $if(cv-theme.sidebar.text-color)$ "text-color": rgb("$cv-theme.sidebar.text-color$".replace("\#", "#")), $endif$

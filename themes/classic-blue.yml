@@ -1,0 +1,48 @@
+# Theme: Classic Blue (default)
+# Professional blue — the default quarto-cv style
+
+cv-theme:
+  main-font: "Poppins"
+  title-font: "Poppins"
+  text-font: "Poppins"
+
+  sidebar:
+    title-color: "#2563eb"   # section titles + photo border
+    text-color: "#1e293b"    # plain text, names, key labels
+    accent-color: "#64748b"  # values, sub-items, secondary text
+    link-color: "#2563eb"    # phone, email, @username, website
+
+  main:
+    title-color: "#2563eb"   # H1 — Education, Experience…
+    subtitle-color: "#1e293b"# H2 — Position, Degree…
+    text-color: "#1e293b"    # body text
+
+  headings:
+    h1: 14pt
+    h2: 11pt
+    h3: 10pt
+    normal: 10pt
+
+cv-layout:
+  sidebar-width: 30%
+  main-width: 2.5fr
+  gutter: 1cm
+  sidebar-bg: "#f1f5f9"      # sidebar background
+  main-bg: "#ffffff"         # main content background
+  margins:
+    top: 0.5cm
+    bottom: 0.5cm
+    left: 0.5cm
+    right: 0.5cm
+  timeline:
+    dot-size: "3pt"
+    line-width: "1pt"
+    dot-color: "#2563eb"     # timeline dots
+
+sidebar-defaults:
+  text-size: 9pt
+  title-size: 11pt
+  icon-size: 11pt
+  title-after: 1em
+  item-after: 1em
+  section-after: 3em
