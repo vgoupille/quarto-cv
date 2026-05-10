@@ -16,3 +16,7 @@
 
 # Generated PDFs (keep template.pdf as preview)
 CV_*.pdf
+
+/.luarc.json
+
+template.typ
