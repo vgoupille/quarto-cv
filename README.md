@@ -60,7 +60,8 @@ This copies `template.qmd`, `assets/`, and installs the extension.
 quarto add vgoupille/quarto-cv
 ```
 
-Then set `format: cv-typst: default` in your document frontmatter.
+Then set `format: quarto-cv-typst: default` in your document
+frontmatter.
 
 ------------------------------------------------------------------------
 
