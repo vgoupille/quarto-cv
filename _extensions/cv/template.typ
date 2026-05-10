@@ -321,15 +321,15 @@
     // Item renderers by type - returns content for a specific item type
     let render-typed-item(item-type, style) = {
       let icon-map = (
-        phone: "_extensions/cv/icons/telephone.svg",
-        email: "_extensions/cv/icons/envelope.svg",
-        birthdate: "_extensions/cv/icons/calendar-event.svg",
-        city: "_extensions/cv/icons/geo-alt.svg",
-        nationality: "_extensions/cv/icons/flag.svg",
-        permit: "_extensions/cv/icons/person-vcard.svg",
-        website: "_extensions/cv/icons/link-45deg.svg",
-        linkedin: "_extensions/cv/icons/linkedin.svg",
-        github: "_extensions/cv/icons/github.svg",
+        phone: "icons/telephone.svg",
+        email: "icons/envelope.svg",
+        birthdate: "icons/calendar-event.svg",
+        city: "icons/geo-alt.svg",
+        nationality: "icons/flag.svg",
+        permit: "icons/person-vcard.svg",
+        website: "icons/link-45deg.svg",
+        linkedin: "icons/linkedin.svg",
+        github: "icons/github.svg",
       )
       
       let content-val = get-sidebar-data(item-type)
