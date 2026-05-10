@@ -3,51 +3,49 @@
 // Right column: experience, education
 
 // --- Quarto Callout Support ---
-#let bootstrap-icon(path, color: "black") = {
-  let svg = "<?xml version='1.0' encoding='utf-8'?><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='" + color + "' viewBox='0 0 16 16'><path d='" + path + "'/></svg>"
-  box(width: 1.1em, height: 1.1em, baseline: 0.2em, image.decode(svg))
-}
+// Required in custom templates: Quarto generates #callout() calls but does
+// not inject the function definition when a custom template is used.
 
-#let fa-info() = bootstrap-icon("M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z", color: "#0d6efd")
-#let fa-check() = [✓]
-#let fa-warning() = [!]
-#let fa-error() = [x]
+#let fa-info()      = [ℹ]
+#let fa-check()     = [✓]
+#let fa-warning()   = [⚠]
+#let fa-error()     = [✗]
+#let fa-lightbulb() = [💡]
+#let fa-fire()      = [🔥]
 
-#let callout(body: none, title: none, background_color: none, icon: none, icon_color: none) = {
+#let callout(
+  body: none,
+  title: none,
+  background_color: none,
+  body_background_color: none,
+  icon: none,
+  icon_color: none,
+) = {
+  let body_fill = if body_background_color != none { body_background_color } else { white }
   block(
     width: 100%,
-    fill: rgb("#ffffff"),
+    fill: body_fill,
     radius: 3pt,
-    clip: true, // Ensure header bg follows radius
-    stroke: (
-        left: 2.5pt + icon_color, 
-        top: 0.5pt + icon_color, 
-        bottom: 0.5pt + icon_color, 
-        right: 0.5pt + icon_color
-    )
+    clip: true,
+    stroke: (left: 2.5pt + icon_color, top: 0.5pt + icon_color,
+             bottom: 0.5pt + icon_color, right: 0.5pt + icon_color),
   )[
     #if title != none {
-       block(
-         width: 100%,
-         fill: background_color, // Light color from Quarto
-         inset: (x: 0.8em, y: 0.6em),
-         below: 0pt, // sticky to body
-         grid(
-           columns: (auto, 1fr),
-           gutter: 0.75em,
-           align: (left + horizon, left + horizon),
-           text(fill: icon_color)[#icon], 
-           text(weight: "bold", fill: black)[#title]
-         )
-       )
+      block(
+        width: 100%,
+        fill: background_color,
+        inset: (x: 0.8em, y: 0.6em),
+        below: 0pt,
+        grid(
+          columns: (auto, 1fr),
+          gutter: 0.75em,
+          align: (left + horizon, left + horizon),
+          text(fill: icon_color)[#icon],
+          text(weight: "bold", fill: black)[#title],
+        )
+      )
     }
-    #block(
-       width: 100%,
-       inset: 1em,
-       above: 0pt,
-    )[
-       #body
-    ]
+    #block(width: 100%, inset: 1em, above: 0pt)[#body]
   ]
 }
 // -----------------------------

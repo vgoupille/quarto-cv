@@ -24,7 +24,7 @@ metadata-files:
 # =============================================================================
 # Fields not listed here are simply hidden. Remove any line you don't need.
 sidebar:
-  photo: "assets/img/placeholder.png"
+  photo: "assets/img/image.png"
   phone: "XX XX XX XX XX"
   email: "fname.lname@email.com"
   birthdate: "DD/MM/YYYY"
@@ -283,21 +283,6 @@ sidebar-sections:
 
 
 
-\
-
-::: {.columns}
-
-::: {.column width="60%"}
-Left content — takes 60% of the width.
-:::
-
-::: {.column width="40%"}
-Right content — takes 40% of the width.
-:::
-
-:::
-
-
 # Skills
 
 ```{r}
@@ -339,14 +324,19 @@ See my [portfolio](https://example.com){color="#2563eb"} for details.
 
 # Publications
 
+:::: {.columns}
+
+::: {.column width="45%"}
+
+Left content — takes 45% of the width.
+
 ```{python}
 #| fig-width: 4
 #| fig-height: 2
-#| out-width: "50%"
-#| fig-align: "center"
+#| out-width: "100%"
+#| fig-cap: "Publications par année"
 
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import numpy as np
 
 years = [2021, 2022, 2023, 2024, 2025]
@@ -364,3 +354,24 @@ ax.tick_params(labelsize=8)
 plt.tight_layout()
 plt.show()
 ```
+:::
+
+::: {.column width="55%"}
+Right content — takes 55% of the width.
+
+| Year | Title | Venue |
+|------|-------|-------|
+| 2025 | [Title A](https://arxiv.org){color="#b31b1b"} | Journal X |
+| 2024 | [Title B](https://arxiv.org){color="#b31b1b"} | Conf. Y |
+| 2024 | [Title C](https://arxiv.org){color="#b31b1b"} | Conf. Z |
+| 2023 | [Title D](https://arxiv.org){color="#b31b1b"} | Workshop |
+: Sélection de publications
+:::
+
+::::
+
+::: {.callout-note}
+
+Ceci est un exemple de callout. Les types disponibles sont : callout-note, callout-tip, callout-warning, callout-important, callout-caution.
+:::
+

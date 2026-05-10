@@ -18,6 +18,7 @@ contributes:
         - columns.lua
         - timeline.lua
         - colored-links.lua
+        - captions.lua
       
       # Page layout (handled by template)
       papersize: a4

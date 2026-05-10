@@ -20,10 +20,10 @@ cv-theme:
     text-color: "#334155"    # body text
 
   headings:
-    h1: 14pt
-    h2: 11pt
-    h3: 10pt
-    normal: 10pt
+    h1: 12pt
+    h2: 9pt
+    h3: 8pt
+    normal: 9pt
 
 cv-layout:
   sidebar-width: 30%
