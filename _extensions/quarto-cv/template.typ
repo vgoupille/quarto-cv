@@ -100,10 +100,9 @@
      
      let user-dy = config.at("dy", default: 0pt)
 
-     let add-dot(it) = context {
-       let h = measure(it).height
+     let add-dot(it) = {
        block([
-         #place(dx: dot-dx, dy: h / 2 - dot-size + user-dy, circle(radius: dot-size, fill: dot-color))
+         #place(left + horizon, dx: dot-dx, dy: user-dy, circle(radius: dot-size, fill: dot-color))
          #it
        ])
      }
@@ -115,10 +114,7 @@
        breakable: true
      )[
        #show heading.where(level: 1): it => if 1 in levels {
-         context {
-           let h = measure(it).height
-           block([#place(dx: dot-dx, dy: h / 2 - dot-size + user-dy, circle(radius: dot-size, fill: dot-color)) #it])
-         }
+         block([#place(left + horizon, dx: dot-dx, dy: user-dy, circle(radius: dot-size, fill: dot-color)) #it])
        } else { it }
        #show heading.where(level: 2): it => if 2 in levels { add-dot(it) } else { it }
        #show heading.where(level: 3): it => if 3 in levels { add-dot(it) } else { it }
