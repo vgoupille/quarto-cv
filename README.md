@@ -455,8 +455,18 @@ Right content here.
 
 ## Lua Filters
 
-Three Pandoc Lua filters run automatically during rendering and convert
-Quarto Markdown syntax into native Typst code.
+Four Pandoc Lua filters run automatically during rendering.
+
+------------------------------------------------------------------------
+
+### `icons.lua`
+
+Reads the SVG icon files from `icons/` relative to the filter’s own
+location — avoiding path resolution issues between the dev namespace
+(`_extensions/quarto-cv/`) and the installed namespace
+(`_extensions/vgoupille/quarto-cv/`). The SVG content is escaped and
+injected as Typst string metadata (`$cv-icons.phone$`, etc.), which the
+template uses to render and colorize icons at compile time.
 
 ------------------------------------------------------------------------
 
@@ -585,14 +595,16 @@ in `cv-theme`.
     │   └── img/
     │       └── photo.png         # Your profile photo
     ├── _extensions/
-    │   └── cv/
+    │   └── quarto-cv/
     │       ├── _extension.yml    # Extension metadata
     │       ├── template.typ      # Typst layout engine
     │       ├── brand.yml         # Color/typography presets
+    │       ├── icons.lua         # SVG icon injection Lua filter
     │       ├── columns.lua       # Multi-column Lua filter
     │       ├── timeline.lua      # Timeline Lua filter
     │       ├── colored-links.lua # Colored links Lua filter
-    │       └── icons/            # SVG contact icons (auto-colorized)
+    │       ├── fonts/            # Bundled Poppins & Inter TTF fonts
+    │       └── icons/            # SVG contact icons (Bootstrap Icons)
     └── template.pdf              # Latest render (preview — tracked in git)
 
 ------------------------------------------------------------------------
