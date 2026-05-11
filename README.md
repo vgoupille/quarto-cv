@@ -27,16 +27,16 @@ License](LICENSE).*
   gutter) + main content area
 - **Modular sidebar** — add, remove, and reorder sections entirely from
   YAML
+- **4 theme presets** — switch with one line (`classic-blue`,
+  `forest-green`, `minimal-dark`, `warm-terracotta`)
 - **Full theme system** — fonts, colors, and heading sizes all
   controlled via YAML
 - **Timeline sections** — visual dot/line indicators for education and
   experience entries
 - **SVG icons** — auto-colorized contact icons (phone, email, LinkedIn,
   GitHub, location…)
-- **Colored inline links** — `[text](url){color="#hex"}` syntax in body
-  content
-- **Multi-column body** — side-by-side content blocks with
-  `::: {.columns}`
+- **Native Quarto syntax** — callouts, tables, figures, multi-column
+  blocks all work out of the box
 - **Auto date** — `last-modified` or a fixed date with a customizable
   prefix
 - **Auto-named PDF** — output automatically named
@@ -180,7 +180,33 @@ sidebar:
 
 ------------------------------------------------------------------------
 
-### Theme
+### Theme Presets
+
+Four ready-to-use themes are bundled in the `themes/` directory.
+Activate one by adding a single line to your frontmatter:
+
+``` yaml
+metadata-files:
+  - themes/classic-blue.yml    # blue professional (default)
+# - themes/forest-green.yml    # natural green
+# - themes/minimal-dark.yml    # dark sidebar
+# - themes/warm-terracotta.yml # earthy terracotta
+```
+
+| Theme             | Primary color          | Sidebar background     | Font    |
+|-------------------|------------------------|------------------------|---------|
+| `classic-blue`    | `#2563eb`              | `#f1f5f9` (light gray) | Poppins |
+| `forest-green`    | `#166534`              | `#f0fdf4` (mint)       | Poppins |
+| `minimal-dark`    | `#f8fafc` (light text) | `#1e293b` (dark)       | Inter   |
+| `warm-terracotta` | `#9a3412`              | `#fff7ed` (sand)       | Poppins |
+
+Each preset sets `cv-theme`, `sidebar-defaults`, and `cv-layout` to
+consistent values. Any key you define in your document’s own `cv-theme:`
+block overrides the preset for that key only.
+
+------------------------------------------------------------------------
+
+### Theme (manual)
 
 ``` yaml
 cv-theme:
@@ -198,7 +224,7 @@ cv-theme:
     title-color: "#2563eb"     # H1 color (section headings)
     subtitle-color: "#1e293b"  # H2 color (position, degree)
     text-color: "#1e293b"      # body text color
-    # link-color: none         # leave unset to enable inline {color="..."} syntax
+    link-color: "#2563eb"      # body link color (optional)
 
   headings:
     h1: 14pt     # section titles (Education, Experience…)
@@ -334,7 +360,46 @@ items:
 #### Per-section style overrides
 
 Any section can override the global `sidebar-defaults` via a `style:`
-block:
+block. All properties are optional.
+
+**Spacing**
+
+| Property         | Example | Description                            |
+|------------------|---------|----------------------------------------|
+| `section-before` | `2em`   | Space above the section                |
+| `section-after`  | `3em`   | Space below the section                |
+| `title-after`    | `0.5em` | Space between the title and first item |
+| `item-after`     | `1em`   | Space between items                    |
+
+**Typography**
+
+| Property     | Example     | Description        |
+|--------------|-------------|--------------------|
+| `text-size`  | `9pt`       | Item text size     |
+| `title-size` | `11pt`      | Section title size |
+| `text-font`  | `"Inter"`   | Item font family   |
+| `title-font` | `"Poppins"` | Title font family  |
+
+**Colors & icons**
+
+| Property | Example | Description |
+|----|----|----|
+| `icon-color` | `"#ff9500"` | Icon color (overrides theme) |
+| `icon-size` | `11pt` | Icon size |
+| `item-color` | `"#1e293b"` | Item text color |
+| `subitem-color` | `"#64748b"` | Sub-item text color |
+| `category-color` | `"#2563eb"` | Category label color (skills) |
+| `category-size` | `9pt` | Category label size (skills) |
+| `category-weight` | `"semibold"` | Category label weight — `"thin"`, `"light"`, `"regular"`, `"medium"`, `"semibold"`, `"bold"`, `"extrabold"` |
+
+**Photo section only**
+
+| Property             | Example          | Description                    |
+|----------------------|------------------|--------------------------------|
+| `photo-size`         | `100pt`          | Photo diameter                 |
+| `photo-radius`       | `50%`            | Border radius (`50%` = circle) |
+| `photo-border`       | `true` / `false` | Show/hide border               |
+| `photo-border-width` | `4pt`            | Border thickness               |
 
 ``` yaml
 - id: contact
@@ -343,7 +408,7 @@ block:
     - type: phone
     - type: email
   style:
-    item-after: 0em        # tighter spacing
+    item-after: 0em
     section-after: 3em
     title-size: 12pt
     text-size: 9pt
@@ -431,13 +496,26 @@ Description of the program.
 | `##` (H2)  | Entry title   | `## MSc Bioinformatics`     |
 | `###` (H3) | Entry detail  | `### University of X, 2024` |
 
-### Colored Links
+### Callouts
 
-Use the `{color="..."}` attribute on any link in the body:
+Native Quarto callout blocks are fully supported:
 
 ``` markdown
-See my [portfolio](https://example.com){color="#2563eb"} for more.
+::: {.callout-note}
+This is a note.
+:::
+
+::: {.callout-tip}
+A helpful tip.
+:::
+
+::: {.callout-warning}
+Pay attention to this.
+:::
 ```
+
+Available types: `callout-note`, `callout-tip`, `callout-warning`,
+`callout-important`, `callout-caution`.
 
 ### Multi-column Body Content
 
@@ -459,7 +537,7 @@ Right content here.
 
 ## Lua Filters
 
-Four Pandoc Lua filters run automatically during rendering.
+Two Pandoc Lua filters run automatically during rendering.
 
 ------------------------------------------------------------------------
 
@@ -521,72 +599,6 @@ The `timeline-section` function and its dot/line styling are defined in
 
 ------------------------------------------------------------------------
 
-### `columns.lua`
-
-Converts `::: {.columns}` / `::: {.column}` Quarto divs into a Typst
-`#grid()` call for side-by-side content.
-
-**Usage:**
-
-``` markdown
-::: {.columns}
-
-::: {.column width="60%"}
-Left content — takes 60% of the width.
-:::
-
-::: {.column width="40%"}
-Right content — takes 40% of the width.
-:::
-
-:::
-```
-
-**Width formats accepted:**
-
-| Value      | Example       | Converted to    |
-|------------|---------------|-----------------|
-| Percentage | `width="40%"` | `0.4fr`         |
-| Fraction   | `width="1fr"` | `1fr`           |
-| Omitted    | —             | `1fr` (default) |
-
-**What the filter produces (Typst):**
-
-``` typst
-#grid(
-  columns: (0.6fr, 0.4fr),
-  gutter: 1em,
-  [ left content ],
-  [ right content ]
-)
-```
-
-------------------------------------------------------------------------
-
-### `colored-links.lua`
-
-Adds a `{color="..."}` attribute to Markdown links to render them in a
-specific color in the PDF. Works only for Typst output — other formats
-(HTML, etc.) ignore the attribute and render a plain link.
-
-**Usage:**
-
-``` markdown
-See my [portfolio](https://example.com){color="#2563eb"} for details.
-```
-
-**What the filter produces (Typst):**
-
-``` typst
-#text(fill: rgb("#2563eb"))[#link("https://example.com")[portfolio]]
-```
-
-Any valid CSS hex color works (`#rrggbb`). This is particularly useful
-to match link colors to your theme without setting a global `link-color`
-in `cv-theme`.
-
-------------------------------------------------------------------------
-
 ## Project Structure
 
     your-cv/
@@ -600,17 +612,21 @@ in `cv-theme`.
     ├── assets/
     │   └── img/
     │       └── photo.png         # Your profile photo
+    ├── themes/
+    │   ├── classic-blue.yml      # Theme preset: blue professional (default)
+    │   ├── forest-green.yml      # Theme preset: natural green
+    │   ├── minimal-dark.yml      # Theme preset: dark sidebar
+    │   └── warm-terracotta.yml   # Theme preset: earthy terracotta
     ├── _extensions/
     │   └── quarto-cv/
-    │       ├── _extension.yml    # Extension metadata
-    │       ├── template.typ      # Typst layout engine
-    │       ├── brand.yml         # Color/typography presets
-    │       ├── icons.lua         # SVG icon injection Lua filter
-    │       ├── columns.lua       # Multi-column Lua filter
-    │       ├── timeline.lua      # Timeline Lua filter
-    │       ├── colored-links.lua # Colored links Lua filter
-    │       ├── fonts/            # Bundled Poppins & Inter TTF fonts
-    │       └── icons/            # SVG contact icons (Bootstrap Icons)
+    │       ├── _extension.yml      # Extension metadata
+    │       ├── typst-template.typ  # Typst function definitions (cv layout engine)
+    │       ├── typst-show.typ      # Pandoc template — wires YAML metadata to cv()
+    │       ├── brand.yml           # Typography defaults (Quarto brand schema)
+    │       ├── icons.lua           # SVG icon injection Lua filter
+    │       ├── timeline.lua        # Timeline Lua filter
+    │       ├── fonts/              # Bundled Poppins & Inter TTF fonts
+    │       └── icons/              # SVG contact icons (Bootstrap Icons)
     └── template.pdf              # Latest render (preview — tracked in git)
 
 ------------------------------------------------------------------------

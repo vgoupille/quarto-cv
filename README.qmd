@@ -28,8 +28,7 @@ format: gfm
 - **Full theme system** — fonts, colors, and heading sizes all controlled via YAML
 - **Timeline sections** — visual dot/line indicators for education and experience entries
 - **SVG icons** — auto-colorized contact icons (phone, email, LinkedIn, GitHub, location…)
-- **Colored inline links** — `[text](url){color="#hex"}` syntax in body content
-- **Multi-column body** — side-by-side content blocks with `::: {.columns}`
+- **Native Quarto syntax** — callouts, tables, figures, multi-column blocks all work out of the box
 - **Auto date** — `last-modified` or a fixed date with a customizable prefix
 - **Auto-named PDF** — output automatically named `CV_FirstName_LastName_YYYY-MM-DD.pdf` via a post-render script
 - **Auto-compressed PDF** — the named PDF is compressed automatically with `pikepdf` (no external tool required)
@@ -193,7 +192,7 @@ cv-theme:
     title-color: "#2563eb"     # H1 color (section headings)
     subtitle-color: "#1e293b"  # H2 color (position, degree)
     text-color: "#1e293b"      # body text color
-    # link-color: none         # leave unset to enable inline {color="..."} syntax
+    link-color: "#2563eb"      # body link color (optional)
 
   headings:
     h1: 14pt     # section titles (Education, Experience…)
@@ -458,13 +457,25 @@ Description of the program.
 | `##` (H2) | Entry title | `## MSc Bioinformatics` |
 | `###` (H3) | Entry detail | `### University of X, 2024` |
 
-### Colored Links
+### Callouts
 
-Use the `{color="..."}` attribute on any link in the body:
+Native Quarto callout blocks are fully supported:
 
 ```markdown
-See my [portfolio](https://example.com){color="#2563eb"} for more.
+::: {.callout-note}
+This is a note.
+:::
+
+::: {.callout-tip}
+A helpful tip.
+:::
+
+::: {.callout-warning}
+Pay attention to this.
+:::
 ```
+
+Available types: `callout-note`, `callout-tip`, `callout-warning`, `callout-important`, `callout-caution`.
 
 ### Multi-column Body Content
 
@@ -486,7 +497,7 @@ Right content here.
 
 ## Lua Filters
 
-Four Pandoc Lua filters run automatically during rendering.
+Two Pandoc Lua filters run automatically during rendering.
 
 ---
 
@@ -538,66 +549,6 @@ By default all heading levels (H1–H6) inside the block receive a dot. Use the 
 
 The `timeline-section` function and its dot/line styling are defined in `template.typ` and configurable via `cv-layout.timeline` in the YAML.
 
----
-
-### `columns.lua`
-
-Converts `::: {.columns}` / `::: {.column}` Quarto divs into a Typst `#grid()` call for side-by-side content.
-
-**Usage:**
-
-```markdown
-::: {.columns}
-
-::: {.column width="60%"}
-Left content — takes 60% of the width.
-:::
-
-::: {.column width="40%"}
-Right content — takes 40% of the width.
-:::
-
-:::
-```
-
-**Width formats accepted:**
-
-| Value | Example | Converted to |
-|---|---|---|
-| Percentage | `width="40%"` | `0.4fr` |
-| Fraction | `width="1fr"` | `1fr` |
-| Omitted | — | `1fr` (default) |
-
-**What the filter produces (Typst):**
-
-```typst
-#grid(
-  columns: (0.6fr, 0.4fr),
-  gutter: 1em,
-  [ left content ],
-  [ right content ]
-)
-```
-
----
-
-### `colored-links.lua`
-
-Adds a `{color="..."}` attribute to Markdown links to render them in a specific color in the PDF. Works only for Typst output — other formats (HTML, etc.) ignore the attribute and render a plain link.
-
-**Usage:**
-
-```markdown
-See my [portfolio](https://example.com){color="#2563eb"} for details.
-```
-
-**What the filter produces (Typst):**
-
-```typst
-#text(fill: rgb("#2563eb"))[#link("https://example.com")[portfolio]]
-```
-
-Any valid CSS hex color works (`#rrggbb`). This is particularly useful to match link colors to your theme without setting a global `link-color` in `cv-theme`.
 
 ---
 
@@ -622,15 +573,14 @@ your-cv/
 │   └── warm-terracotta.yml   # Theme preset: earthy terracotta
 ├── _extensions/
 │   └── quarto-cv/
-│       ├── _extension.yml    # Extension metadata
-│       ├── template.typ      # Typst layout engine
-│       ├── brand.yml         # Typography defaults (Quarto brand schema)
-│       ├── icons.lua         # SVG icon injection Lua filter
-│       ├── columns.lua       # Multi-column Lua filter
-│       ├── timeline.lua      # Timeline Lua filter
-│       ├── colored-links.lua # Colored links Lua filter
-│       ├── fonts/            # Bundled Poppins & Inter TTF fonts
-│       └── icons/            # SVG contact icons (Bootstrap Icons)
+│       ├── _extension.yml      # Extension metadata
+│       ├── typst-template.typ  # Typst function definitions (cv layout engine)
+│       ├── typst-show.typ      # Pandoc template — wires YAML metadata to cv()
+│       ├── brand.yml           # Typography defaults (Quarto brand schema)
+│       ├── icons.lua           # SVG icon injection Lua filter
+│       ├── timeline.lua        # Timeline Lua filter
+│       ├── fonts/              # Bundled Poppins & Inter TTF fonts
+│       └── icons/              # SVG contact icons (Bootstrap Icons)
 └── template.pdf              # Latest render (preview — tracked in git)
 ```
 

@@ -320,10 +320,9 @@ ggplot(skills, aes(x = skill, y = level)) +
 ```
 
 
-See my [portfolio](https://example.com){color="#2563eb"} for details.
 
 # Publications
-
+<!-- 
 :::: {.columns}
 
 ::: {.column width="45%"}
@@ -354,9 +353,9 @@ ax.tick_params(labelsize=8)
 plt.tight_layout()
 plt.show()
 ```
-:::
+::: -->
 
-::: {.column width="55%"}
+<!-- ::: {.column width="55%"}
 Right content — takes 55% of the width.
 
 | Year | Title | Venue |
@@ -373,5 +372,81 @@ Right content — takes 55% of the width.
 ::: {.callout-note}
 
 Ceci est un exemple de callout. Les types disponibles sont : callout-note, callout-tip, callout-warning, callout-important, callout-caution.
+::: -->
+<!-- 
+::: {.list-table}
+
+- - header 1
+  - header 2
+
+- - row 1 col 1
+  - row 1 col 2
+
+- - row 2 col 1
+  - row 2 col 2
+: test {#tbl-second}
 :::
 
+::: {.callout-note}
+
+test 
+
+::: -->
+
+
+<!-- ::: callout-note
+test
+::: -->
+
+::: list-table
+- 
+
+  - header 1
+  - header 2
+
+- 
+
+  - row 1 col 1
+  - row 1 col 2
+
+- 
+
+  - row 2 col 1
+  - row 2 col 2
+:::
+
+::: {#tbl-panel layout-ncol="2"}
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| A    | B    | C    |
+| E    | F    | G    |
+| A    | G    | G    |
+
+: First Table
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| A    | B    | C    |
+| E    | F    | G    |
+| A    | G    | G    |
+
+: Second Table
+
+Main Caption
+:::
+
+See @tbl-panel for details
+
+<!-- ::: {.column-margin}
+
+Cette légende est dans la marge.
+::: -->
+
+
+::: {layout="[60, 40]"}
+```{=typst}
+See my #link("[https://example.com](https://example.com)")[#text(fill: rgb("#2563eb"))[portfolio]] for details.
+```
+
+See my [[portfolio]{style="color: #2563eb;"}](https://example.com) for details.
+:::

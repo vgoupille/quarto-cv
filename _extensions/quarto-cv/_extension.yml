@@ -1,24 +1,25 @@
-title: CV Format
+title: quarto-cv
 author: Valentin Goupille
 version: 1.0.0
 description: "Two-column PDF CV/résumé format with modular sidebar, theme system, and timeline sections."
-quarto-required: ">=1.4.0"
+quarto-required: ">=1.9.0"
 contributes:
   formats:
     typst:
+      template-partials:
+        - typst-template.typ
+        - typst-show.typ
+
+      
       # Bundled fonts — both paths listed to handle dev (_extensions/quarto-cv/) and
       # installed-via-quarto-add (_extensions/vgoupille/quarto-cv/) layouts
       font-paths: ["_extensions/quarto-cv/fonts", "_extensions/vgoupille/quarto-cv/fonts"]
       # Custom template
-      template: template.typ
 
       # Lua filters
       filters:
         - icons.lua
-        - columns.lua
         - timeline.lua
-        - colored-links.lua
-        - captions.lua
       
       # Page layout (handled by template)
       papersize: a4
