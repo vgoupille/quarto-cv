@@ -6,7 +6,7 @@ format: gfm
 
 > A Quarto extension to generate a polished, two-column PDF résumé using Typst — fully configurable via YAML, no Typst knowledge required.
 
-![Quarto ≥ 1.4](https://img.shields.io/badge/Quarto-%E2%89%A51.4-blue)
+![Quarto ≥ 1.9](https://img.shields.io/badge/Quarto-%E2%89%A51.9-blue)
 ![Typst](https://img.shields.io/badge/Typst-PDF-orange)
 ![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-green)
 
@@ -547,18 +547,24 @@ Available types: `callout-note`, `callout-tip`, `callout-warning`, `callout-impo
 ### Multi-column Body Content
 
 ```markdown
-::: {.columns}
+::: {layout="[[50,50]]"}
 
-::: {.column width="50%"}
-Left content here.
-:::
+Left column with text and an image.
 
-::: {.column width="50%"}
-Right content here.
-:::
+![Image](image.png)
+
+Right column with more content.
 
 :::
 ```
+
+Multi-column layouts also support tables, diagrams, and other Quarto elements. For more details, see:
+
+- [Figures documentation](https://quarto.org/docs/authoring/figures.html)
+- [Tables documentation](https://quarto.org/docs/authoring/tables.html)
+- [Diagrams documentation](https://quarto.org/docs/authoring/diagrams.html)
+- [Custom Typst templates documentation](https://quarto.org/docs/output-formats/typst-custom.html)
+- [Quarto 1.9 release announcement](https://quarto.org/docs/blog/posts/2026-03-24-1.9-release/)
 
 ---
 

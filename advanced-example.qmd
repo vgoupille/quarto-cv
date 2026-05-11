@@ -1,0 +1,340 @@
+---
+title: CV - Advanced Customization Showcase
+author: "Alex Chen"
+format:
+  quarto-cv-typst: default
+date: 2026-05-01
+date-prefix: "Last updated: "
+execute:
+  echo: false
+  warning: false
+
+# =============================================================================
+# SHOWCASE: Advanced Customization Features
+# This template demonstrates maximum personalization:
+# - Per-section custom colors
+# - Square photo
+# - Large sidebar (45% width)
+# - Multi-level timeline
+# - 2-column layouts with plots
+# - R and Python visualizations
+# =============================================================================
+
+metadata-files:
+  - themes/classic-blue.yml
+
+# =============================================================================
+# Personal Info
+# =============================================================================
+sidebar:
+  photo: "assets/img/image.png"
+  phone: "+33 7 98 76 54 32"
+  email: "alex.chen@example.com"
+  birthdate: "22/07/1998"
+  city: "Lyon, France"
+  nationality: "Franco-Chinese"
+  permit: "Driving License B"
+  website: "https://alexchen.dev"
+  website-display: "alexchen.dev"
+  linkedin: "https://linkedin.com/in/alex-chen"
+  linkedin-display: "\\@alex-chen"
+  github: "https://github.com/achen"
+  github-display: "\\@achen"
+
+# =============================================================================
+# Sidebar Defaults: Global spacing for all sections (can be overridden per-section)
+# =============================================================================
+sidebar-defaults:
+  text-size: 9pt
+  title-size: 11pt
+  icon-size: 11pt
+  title-after: 0.8em         # Space below section title
+  item-after: 0.6em          # Space below each item
+  section-after: 2em         # Space below entire section
+
+# =============================================================================
+# ADVANCED: Custom sidebar styling with per-section colors & fonts
+# =============================================================================
+sidebar-sections:
+
+  # Square photo with custom styling
+  - id: photo
+    style:
+      section-before: 0em
+      photo-size: 70pt
+      photo-radius: 0%              # SQUARE instead of circular
+      photo-border: true
+      photo-border-width: 2pt
+      section-after: 1em
+
+  # Contact with custom accent color
+  - id: contact
+    title: "Contact"
+    items:
+      - type: phone
+      - type: email
+      - type: city
+      - type: birthdate
+      - type: linkedin
+      - type: github
+    style:
+      item-after: 3em
+      section-after: 0em
+      title-size: 11pt
+      text-size: 8.5pt
+      icon-color: "#25EBDB"
+      title-color: "#AF1E42"         # Custom blue for contact icons
+
+  # Languages with green accent — custom font for this section
+  - id: languages
+    title: "Languages"
+    items:
+      - name: "French"
+        value: "Native"
+      - name: "English"
+        value: "C1 - Fluent"
+      - name: "Mandarin"
+        value: "B1 - Intermediate"
+      - name: "Japanese"
+        value: "A2 - Basic"
+    style:
+      text-size: 8.5pt
+      text-font: "Poppins"          # Per-section font override
+      section-after: 2.5em
+
+  # Programming with orange accent — monospace atypical font
+  - id: programming
+    title: "Programming"
+    items:
+      - category: "Data Science"
+        items: "Python, R, SQL, Julia"
+      - category: "ML Frameworks"
+        items: "TensorFlow, PyTorch, scikit-learn"
+      - category: "Tools"
+        items: "Git, Docker, Jupyter, Quarto"
+      - category: "Cloud"
+        items: "AWS, GCP, Azure ML"
+      - type: birthdate
+    style:
+      text-size: 8pt
+      text-font: "Courier New"      # Atypical monospace font for code feel
+      title-font: "Courier New"     # Monospace for title too
+      title-size: 12pt
+      section-after: 2.5em
+      icon-color: "#52F916" 
+      icon-size: 5pt       # Custom orange
+      category-color: "#f97316"
+      item-color: "#FF0000" 
+
+  # Research interests with purple accent
+  - id: interests
+    title: "Research Interests"
+    items:
+      - name: "AI & Ethics"
+        subitems:
+          - "Fairness in ML"
+          - "Bias mitigation"
+      - name: "Computer Vision"
+        subitems:
+          - "Object detection"
+          - "Image classification"
+      - name: "Time Series"
+        subitems:
+          - "Forecasting"
+          - "Anomaly detection"
+    style:
+      title-size: 30pt
+      text-size: 3pt
+      icon-color: "#a855f7"         # Custom purple
+      item-color: "#7c3aed"
+      section-after: 10em
+
+
+  # Certifications with rose accent
+  - id: certifications
+    title: "Certifications"
+    items:
+      - "AWS Certified Machine Learning — Specialty"
+      - "Google Cloud Professional Data Engineer"
+      - "Deep Learning Specialization (Coursera)"
+    style:
+      section-before: 5em
+      text-size: 8pt
+      section-after: 0em
+      icon-color: "#ec4899"         # Custom rose
+
+# =============================================================================
+# VERY LARGE SIDEBAR: 45% width instead of default 30%
+# =============================================================================
+cv-layout:
+  sidebar-width: 40%                # Much wider sidebar
+  main-width: 2fr
+  gutter: 3cm
+  sidebar-bg: "#06080A"
+  main-bg: "#EEE6E6"
+  margins:
+    top: 0cm
+    bottom: 4cm
+    left: 1cm
+    right: 0cm
+  timeline:
+    dot-size: "6pt"
+    line-width: "3pt"
+    # dot-color and line-color inherit from sidebar.title-color (#AF1E42) by default
+
+# =============================================================================
+# CUSTOM THEME: Different colors for title, text, etc.
+# =============================================================================
+cv-theme:
+  main-font: "Poppins"              # Global default font (fallback for all elements)
+  title-font: "Inter"               # Font for section headings (H1, H2, etc.)
+  text-font: "Inter"                # Font for body text and regular content
+
+  sidebar:
+    title-color: "#AF1E42"          # Dark blue titles
+    text-color: "#05C525"           # Dark gray text
+    accent-color: "#7169BF"         # Gray accents
+    link-color: "#E1EB25"           # Blue links
+    icon-color: "#2563eb"          # SVG icons
+    photo-border-color: "#EB8B25"  # photo border stroke
+
+  main:
+    title-color: "#B8628C"          # Dark blue section headings
+    subtitle-color: "#DEC404"       # Dark subtitle
+    text-color: "#1f2937"
+    link-color: "#2563eb"
+
+  headings:
+    h1: 13pt                        # Section titles
+    h2: 16pt
+    h3: 3pt
+    normal: 7pt
+
+# =============================================================================
+# HEADER: Name, title, objective
+# =============================================================================
+cv-header:
+  name: "Alex Chen"
+  title: "ML Research Engineer · Data Scientist"
+  objective: >-
+    Passionate about building fair and interpretable machine learning systems.
+    Expertise in deep learning, computer vision, and time series forecasting.
+    Seeking opportunities to work on high-impact problems in AI ethics and responsible AI.
+  name-color: "#A72222"
+  name-size: "6pt"
+  title-color: "#053398"
+  title-size: "24pt"
+  objective-bg: "#1175D9"   
+---
+
+
+
+# Technical Projects & Publications
+
+::: {.timeline levels="2,3"}
+
+## 2024 | Fair Vision: Bias Detection in Computer Vision Models
+
+*Published in IEEE CVPR Workshop 2024*
+
+Developed interpretable framework for detecting and mitigating gender/age bias in
+facial recognition systems across different demographic groups.
+
+### IEEE CVPR Workshop, Vancouver
+
+## 2023 | TimeNet: Temporal Attention for Long-Sequence Forecasting
+
+*Open-source library — [github.com/achen/timenet](https://github.com/achen/timenet)*
+
+Implemented attention-based architecture for multi-step time series forecasting.
+Outperformed state-of-the-art baselines (MAPE: 8.2% vs. 12.1%).
+1200+ GitHub stars, active community contributions.
+
+### GitHub, Open Source
+
+:::
+
+# Research Visualizations: Multi-Column Layout
+
+::: {layout="[[50,50]]"}
+
+### Model Performance Comparison
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Simulated model comparison data
+models <- data.frame(
+  model = c("Baseline", "FairRank", "FairRank+", "Our Method"),
+  accuracy = c(0.82, 0.84, 0.86, 0.885),
+  fairness = c(0.45, 0.72, 0.81, 0.92)
+)
+
+ggplot(models, aes(x = fairness, y = accuracy, label = model)) +
+  geom_point(size = 5, color = "#2563eb") +
+  geom_label(nudge_y = 0.01, size = 3.5) +
+  labs(title = "Accuracy vs. Fairness Trade-off",
+       x = "Fairness Score", y = "Accuracy") +
+  theme_minimal() +
+  ylim(0.8, 0.9) +
+  xlim(0.4, 0.95)
+```
+
+### Training Curves: Loss Over Time
+
+```{python}
+#| label: fig-cars
+#| fig-cap: "Cars"
+import numpy as np
+import matplotlib.pyplot as plt
+
+epochs = np.arange(1, 101)
+train_loss = 2.5 * np.exp(-epochs/25) + 0.1 * np.random.normal(0, 0.05, 100)
+val_loss = 2.5 * np.exp(-epochs/25) + 0.15 * np.random.normal(0, 0.08, 100)
+
+plt.figure(figsize=(8, 5))
+plt.plot(epochs, train_loss, label="Training Loss", linewidth=2, color="#2563eb")
+plt.plot(epochs, val_loss, label="Validation Loss", linewidth=2, color="#ef4444", linestyle="--")
+plt.xlabel("Epoch", fontsize=11)
+plt.ylabel("Loss", fontsize=11)
+plt.title("Model Convergence During Training", fontsize=12, fontweight="bold")
+plt.legend(fontsize=10)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig("/tmp/training_curves.png", dpi=150, bbox_inches="tight")
+plt.show()
+```
+
+:::
+
+
+# Additional Information
+
+:::: {layout="[50, 50]"}
+
+::: {#left-col}
+**Awards & Honors**
+
+- Prix de l'Excellence en IA (Institut Polytechnique, 2024)
+- Google Cloud Challenge Winner (2023)
+- Coursera Deep Learning Specialization with Distinction
+
+:::
+
+::: {#right-col}
+| Certification | Year |
+|---|---|
+| AWS ML Specialty | 2024 |
+| GCP Data Engineer | 2023 |
+| Deep Learning | 2022 |
+: Second Table {#tbl-second}
+:::
+
+::::
+
+::: {.callout-tip}
+## Pro Tip
+
+Use custom per-section fonts with `text-font` and `title-font` to create visual hierarchy in your sidebar! See table → @tbl-second
+:::
