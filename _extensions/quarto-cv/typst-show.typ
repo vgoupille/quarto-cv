@@ -240,9 +240,30 @@ $endif$
          $if(cv-theme.headings.h5-h6)$ "h5-h6": "$cv-theme.headings.h5-h6$", $endif$
          $if(cv-theme.headings.normal)$ "normal": "$cv-theme.headings.normal$", $endif$
       ),
+      "header": (
+         $if(cv-theme.header.name-color)$ "name-color": rgb("$cv-theme.header.name-color$".replace("\#", "#")), $endif$
+         $if(cv-theme.header.title-color)$ "title-color": rgb("$cv-theme.header.title-color$".replace("\#", "#")), $endif$
+         $if(cv-theme.header.objective-bg)$ "objective-bg": rgb("$cv-theme.header.objective-bg$".replace("\#", "#")), $endif$
+         $if(cv-theme.header.objective-stroke-color)$ "objective-stroke-color": rgb("$cv-theme.header.objective-stroke-color$".replace("\#", "#")), $endif$
+         $if(cv-theme.header.objective-stroke-width)$ "objective-stroke-width": eval("$cv-theme.header.objective-stroke-width$"), $endif$
+      ),
     $endif$
   ),
   date: "$date$",
   date-prefix: "$if(date-prefix)$$date-prefix$$else$Last updated: $endif$",
+  cv-header: (
+$if(cv-header)$
+    $if(cv-header.name)$"name": "$cv-header.name$",$endif$
+    $if(cv-header.title)$"title": "$cv-header.title$",$endif$
+    $if(cv-header.objective)$"objective": "$cv-header.objective$",$endif$
+    $if(cv-header.name-color)$"name-color": "$cv-header.name-color$",$endif$
+    $if(cv-header.name-size)$"name-size": "$cv-header.name-size$",$endif$
+    $if(cv-header.title-color)$"title-color": "$cv-header.title-color$",$endif$
+    $if(cv-header.title-size)$"title-size": "$cv-header.title-size$",$endif$
+    $if(cv-header.objective-bg)$"objective-bg": "$cv-header.objective-bg$",$endif$
+    $if(cv-header.objective-stroke-color)$"objective-stroke-color": "$cv-header.objective-stroke-color$",$endif$
+    $if(cv-header.objective-stroke-width)$"objective-stroke-width": "$cv-header.objective-stroke-width$",$endif$
+$endif$
+  ),
   doc,
 )

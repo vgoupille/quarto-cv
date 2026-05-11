@@ -20,10 +20,10 @@ cv-theme:
     text-color: "#1a2e05"    # body text
 
   headings:
-    h1: 14pt
-    h2: 11pt
-    h3: 10pt
-    normal: 10pt
+    h1: 12pt
+    h2: 9pt
+    h3: 8pt
+    normal: 9pt
 
 cv-layout:
   sidebar-width: 30%
@@ -42,9 +42,9 @@ cv-layout:
     dot-color: "#166534"     # timeline dots
 
 sidebar-defaults:
-  text-size: 9pt
-  title-size: 11pt
-  icon-size: 11pt
-  title-after: 1.2em
-  item-after: 1.1em
-  section-after: 3.5em
+  text-size: 8.5pt
+  title-size: 10pt
+  icon-size: 10pt
+  title-after: 0.8em
+  item-after: 0.7em
+  section-after: 2.5em

@@ -1,0 +1,184 @@
+---
+title: CV - Marie Dupont
+author: "Marie Dupont"
+format:
+  quarto-cv-typst: default
+date: 2026-05-01
+date-prefix: "Last updated: "
+execute:
+  echo: false
+
+# =============================================================================
+# STEP 1 — Choose a theme (uncomment one line)
+# =============================================================================
+metadata-files:
+  - themes/classic-blue.yml    # blue professional (default)
+  # - themes/forest-green.yml    # natural green
+  # - themes/minimal-dark.yml    # dark sidebar
+  # - themes/warm-terracotta.yml # earthy terracotta
+
+# =============================================================================
+# STEP 2 — Personal info
+# =============================================================================
+sidebar:
+  photo: "assets/img/image.png"
+  phone: "+33 6 12 34 56 78"
+  email: "marie.dupont@example.com"
+  birthdate: "15/03/1995"
+  city: "Paris, France"
+  nationality: "French"
+  permit: "Driving License B"
+  website: "https://mariedupont.dev"
+  website-display: "mariedupont.dev"
+  linkedin: "https://linkedin.com/in/marie-dupont"
+  linkedin-display: "\\@marie-dupont"
+  github: "https://github.com/mdupont"
+  github-display: "\\@mdupont"
+
+# =============================================================================
+# STEP 3 — Sidebar sections
+# =============================================================================
+sidebar-sections:
+
+  - id: photo
+    style:
+      section-before: 2em
+      photo-size: 100pt
+      photo-radius: 50%
+      photo-border: true
+      photo-border-width: 4pt
+      section-after: 3em
+
+  - id: contact
+    title: "Contact"
+    items:
+      - type: phone
+      - type: email
+      - type: city
+      - type: birthdate
+      - type: nationality
+      - type: permit
+      - type: linkedin
+      - type: github
+    style:
+      item-after: 0em
+      section-after: 3em
+
+  - id: languages
+    title: "Languages"
+    items:
+      - name: "French"
+        value: "Native"
+      - name: "English"
+        value: "C1 — Fluent"
+      - name: "Spanish"
+        value: "B2 — Intermediate"
+    style:
+      text-size: 10pt
+
+  - id: skills
+    title: "IT Skills"
+    items:
+      - category: "Languages"
+        items: "Python, R, SQL, JavaScript"
+      - category: "ML / Data"
+        items: "scikit-learn, XGBoost, MLflow"
+      - category: "Tools"
+        items: "Git, Docker, VS Code, Quarto"
+      - category: "Cloud"
+        items: "Azure ML, GCP BigQuery"
+    style:
+      text-size: 9.5pt
+
+  - id: strengths
+    title: "Strengths"
+    items:
+      - "Analytical mindset"
+      - "Team collaboration"
+      - "Fast learner"
+      - "Written communication"
+    style:
+      text-size: 10pt
+
+# =============================================================================
+# Header: name, title, objective — colors inherit from active theme
+# =============================================================================
+cv-header:
+  name: "Marie Dupont"
+  title: "Data Scientist · ML Engineer"
+  objective: >-
+    Seeking a data science position where I can apply statistical modelling and
+    machine-learning expertise to build impactful data products in a collaborative
+    environment.
+---
+
+# Education
+
+::: {.timeline}
+
+## 2021 - 2023 | MSc Data Science & Artificial Intelligence
+
+*École Polytechnique, Paris | Valedictorian — mention Très Bien*
+
+Coursework: statistical learning, deep learning, NLP, causal inference, distributed computing.
+
+## 2018 - 2021 | BSc Mathematics & Computer Science
+
+*Université Paris-Saclay | Ranked 3rd / 120*
+
+Strong foundation in probability, linear algebra, algorithms and software engineering.
+
+:::
+
+# Professional Experience
+
+::: {.timeline levels="2,3,4"}
+
+## Jan. 2024 - Present | Data Scientist
+
+*BNP Paribas, Paris*
+
+Developed an end-to-end ML pipeline for credit-risk scoring (XGBoost + SHAP explainability),
+reducing false-positive rate by 18 %. Tech stack: Python, MLflow, Azure ML, SQL Server.
+
+## Apr. 2023 - Dec. 2023 | ML Research Intern
+
+*INRIA – TAU Team, Saclay*
+
+Investigated fairness in ranking algorithms for job-search platforms (project **FairRank**).
+Published results at ECML-PKDD 2023 workshop.
+
+## Jun. 2022 - Aug. 2022 | Data Engineering Intern
+
+*Criteo, Paris*
+
+Built real-time feature pipelines with Apache Kafka and Spark Structured Streaming.
+Reduced daily batch latency by 35 %.
+
+## 2021 | Volunteer Data Analyst
+
+*Médecins Sans Frontières, remote*
+
+Cleaned and visualised epidemiological datasets to support field reporting.
+
+:::
+
+# Projects & Publications
+
+::: {.timeline}
+
+## 2023 | FairRank — Fairness-aware Learning-to-Rank
+
+*ECML-PKDD 2023 workshop paper*
+
+Proposed a post-processing re-ranking algorithm that reduces demographic bias while
+preserving NDCG@10 within 2 % of the unconstrained baseline.
+
+## 2022 | OpenCV Sudoku Solver
+
+*Personal project — [github.com/mdupont/sudoku-solver](https://github.com/mdupont/sudoku-solver)*
+
+Real-time Sudoku detection and solving pipeline using OpenCV and a CNN digit classifier
+(99.1 % accuracy on MNIST).
+
+:::

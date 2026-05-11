@@ -19,4 +19,4 @@ CV_*.pdf
 
 /.luarc.json
 
-template.typ
+/*.typ

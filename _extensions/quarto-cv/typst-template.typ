@@ -207,6 +207,8 @@
   section-order: ("photo", "contact", "networks", "skills", "languages", "strengths", "interests"),
   layout-config: none,
   theme: none,
+  // Header block: name, title, objective — all optional, colors auto-inherit from theme
+  cv-header: none,
   body
 ) = {
   // Helper to get sidebar data (from sidebar block or legacy params)
@@ -254,6 +256,7 @@
       h5-h6: 8pt,
       normal: 10pt,
     ),
+    header: (:),  // theme-level cv-header color overrides
   )
 
   let col(c) = if type(c) == color { c } else { rgb(c) }
@@ -299,6 +302,14 @@
         if "h4" in theme.headings { base.headings.h4 = sz(theme.headings.h4) }
         if "h5-h6" in theme.headings { base.headings.at("h5-h6") = sz(theme.headings.at("h5-h6")) }
         if "normal" in theme.headings { base.headings.normal = sz(theme.headings.normal) }
+      }
+
+      if "header" in theme {
+        if "name-color" in theme.header { base.header.insert("name-color", col(theme.header.name-color)) }
+        if "title-color" in theme.header { base.header.insert("title-color", col(theme.header.title-color)) }
+        if "objective-bg" in theme.header { base.header.insert("objective-bg", col(theme.header.objective-bg)) }
+        if "objective-stroke-color" in theme.header { base.header.insert("objective-stroke-color", col(theme.header.objective-stroke-color)) }
+        if "objective-stroke-width" in theme.header { base.header.insert("objective-stroke-width", sz(theme.header.objective-stroke-width)) }
       }
     }
     // Backward compatibility: override from sidebar-defaults param if present
@@ -679,7 +690,55 @@
           
           // Set base text size
           set text(size: current-theme.headings.normal, fill: current-theme.main.text-color)
-          
+
+          // Render cv-header (name / title / objective) if defined in metadata
+          // Fallback chain for each color:
+          //   1. explicit cv-header.* override  (per-document)
+          //   2. cv-theme.header.*              (per-theme)
+          //   3. computed defaults              (from active theme colors)
+          if cv-header != none {
+            let hx(key) = cv-header.at(key, default: none)
+            let th = current-theme.header
+
+            let hcol(key, theme-key, fallback) = {
+              if hx(key) != none { rgb(hx(key).replace("\#", "#")) }
+              else if theme-key in th { th.at(theme-key) }
+              else { fallback }
+            }
+            let hsz(key, theme-key, fallback) = {
+              if hx(key) != none { eval(hx(key)) }
+              else if theme-key in th { th.at(theme-key) }
+              else { fallback }
+            }
+
+            let h-name-color  = hcol("name-color",  "name-color",  current-theme.main.text-color)
+            let h-title-color = hcol("title-color", "title-color", current-theme.main.title-color)
+            let h-obj-bg      = hcol("objective-bg", "objective-bg",
+              if layout-config != none and "sidebar-bg" in layout-config { layout-config.sidebar-bg }
+              else { rgb("#f1f5f9") }
+            )
+            let h-stroke-color  = hcol("objective-stroke-color", "objective-stroke-color", current-theme.main.title-color)
+            let h-stroke-width  = hsz("objective-stroke-width",  "objective-stroke-width", 2pt)
+            let h-name-size     = hsz("name-size",  "name-size",  14pt)
+            let h-title-size    = hsz("title-size", "title-size", 18pt)
+
+            if hx("name") != none and hx("name") != "" {
+              text(size: h-name-size, weight: "bold", fill: h-name-color)[#hx("name")]
+              v(0.15em)
+            }
+            if hx("title") != none and hx("title") != "" {
+              text(size: h-title-size, weight: "bold", fill: h-title-color)[#hx("title")]
+              v(0.5em)
+            }
+            if hx("objective") != none and hx("objective") != "" {
+              block(
+                fill: h-obj-bg, inset: 8pt, radius: 4pt,
+                stroke: h-stroke-width + h-stroke-color, width: 100%,
+              )[#text(fill: current-theme.main.text-color)[#hx("objective")]]
+              v(0.5em)
+            }
+          }
+
           body
          
          if date != none and date != "" {

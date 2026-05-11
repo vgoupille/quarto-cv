@@ -170,6 +170,25 @@ sidebar-sections:
   #     - type: github
 
 # =============================================================================
+# STEP 4 — Header: name, job title and objective (shown at the top of the CV)
+# =============================================================================
+# Colors inherit from the active theme. Override any field optionally.
+cv-header:
+  name: "[First Name Last Name]"
+  title: "[Job Title or Research Position]"
+  objective: >-
+    [Your professional goal. Describe your background, motivations and
+    what you are looking for in 2-3 sentences.]
+  # Optional color/size overrides (theme defaults apply if omitted):
+  # name-color: "#000000"
+  # name-size: "14pt"
+  # title-color: "#2563eb"        # defaults to cv-theme.main.title-color
+  # title-size: "18pt"
+  # objective-bg: "#f1f5f9"       # defaults to cv-layout.sidebar-bg
+  # objective-stroke-color: "#2563eb"   # defaults to cv-theme.main.title-color
+  # objective-stroke-width: "2pt"
+
+# =============================================================================
 # ADVANCED — Override theme values (uncomment to customize)
 # =============================================================================
 # These blocks let you fine-tune the active theme without editing the theme
@@ -229,22 +248,6 @@ sidebar-sections:
 #     # dot-color: "#2563eb"
 #     # line-color: "#94a3b8"
 ---
-
-```{=typst}
-#text(size: 14pt, weight: "bold", fill: rgb("#000000"))[First Name Last Name]
-#v(0.15em)
-#text(size: 18pt, weight: "bold", fill: rgb("#2563eb"),)[Job Title or Research Position]
-// #line(length: 100%, stroke: 1pt + rgb("#2563eb"))
-#v(0.5em)
-```
-
-::: {.block fill=rgb("#f1f5f9") inset="8pt" radius="4pt" stroke="2pt + rgb(\"#2563eb\")"}
-
-**Objective: [Your professional goal]**
-
-[Describe your background, motivations and what you are looking for.]
-
-:::
 
 # Education
 
@@ -448,5 +451,5 @@ Cette légende est dans la marge.
 See my #link("[https://example.com](https://example.com)")[#text(fill: rgb("#2563eb"))[portfolio]] for details.
 ```
 
-See my [[portfolio]{style="color: #2563eb;"}](https://example.com) for details.
+See my [[portfolio]{style="color: #2563eb;"}](https://example.com) for details. 
 :::

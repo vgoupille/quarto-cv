@@ -7,17 +7,23 @@ cv-theme:
   text-font: "Inter"
 
   sidebar:
-    title-color: "#FF8400"         # section titles
-    text-color: "#AFDB02"          # plain text, names, key labels
-    accent-color: "#155FBB"        # values, sub-items, secondary text
-    link-color: "#BA1634"          # phone, email, @username, website
-    icon-color: "#DD29B0"          # SVG icons
-    photo-border-color: "#FAFC7D"  # photo border stroke (uses link-color for contrast)
+    title-color: "#93c5fd"          # light blue — section titles on dark bg
+    text-color: "#e2e8f0"           # near-white — plain text, names
+    accent-color: "#94a3b8"         # muted gray — values, sub-items
+    link-color: "#93c5fd"           # light blue — links
+    icon-color: "#93c5fd"           # light blue — SVG icons
+    photo-border-color: "#93c5fd"   # light blue — photo border
 
   main:
-    title-color: "#1e293b"   # H1 — Education, Experience…
-    subtitle-color: "#334155"# H2 — Position, Degree…
-    text-color: "#334155"    # body text
+    title-color: "#1d4ed8"          # strong blue — H1 section headings
+    subtitle-color: "#1e293b"       # dark navy — H2 position/degree
+    text-color: "#334155"           # body text
+
+  header:
+    name-color: "#0f172a"           # very dark — name on white
+    title-color: "#1d4ed8"          # strong blue — job title
+    objective-bg: "#eff6ff"         # very light blue tint — block bg
+    objective-stroke-color: "#1d4ed8"
 
   headings:
     h1: 12pt
@@ -39,7 +45,7 @@ cv-layout:
   timeline:
     dot-size: "3pt"
     line-width: "1pt"
-    dot-color: "#334155"     # timeline dots
+    # dot-color inherits from main.title-color (#1d4ed8)
 
 sidebar-defaults:
   text-size: 8.5pt

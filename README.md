@@ -15,9 +15,56 @@ License](LICENSE).*
 
 ------------------------------------------------------------------------
 
-## Preview
+## Theme Gallery
 
-![CV Preview](assets/img/preview.png)
+Four ready-to-use themes are bundled — switch with a single line in your
+frontmatter.
+
+<table>
+
+<tr>
+
+<td align="center" width="50%">
+
+<img src="assets/img/preview-classic-blue.png" alt="Classic Blue theme preview"/><br>
+<b>Classic Blue</b> — professional blue, light sidebar (default)
+</td>
+
+<td align="center" width="50%">
+
+<img src="assets/img/preview-forest-green.png" alt="Forest Green theme preview"/><br>
+<b>Forest Green</b> — natural green, mint sidebar
+</td>
+
+</tr>
+
+<tr>
+
+<td align="center" width="50%">
+
+<img src="assets/img/preview-minimal-dark.png" alt="Minimal Dark theme preview"/><br>
+<b>Minimal Dark</b> — high contrast, dark sidebar (Inter font)
+</td>
+
+<td align="center" width="50%">
+
+<img src="assets/img/preview-warm-terracotta.png" alt="Warm Terracotta theme preview"/><br>
+<b>Warm Terracotta</b> — earthy terracotta, sand sidebar
+</td>
+
+</tr>
+
+</table>
+
+Activate a theme with one line:
+
+``` yaml
+metadata-files:
+  - themes/classic-blue.yml    # blue professional (default)
+# - themes/forest-green.yml    # natural green
+# - themes/minimal-dark.yml    # dark sidebar
+# - themes/warm-terracotta.yml # earthy terracotta
+```
 
 ------------------------------------------------------------------------
 
@@ -110,6 +157,17 @@ uv run scripts/convert_preview.py
 # 3. Re-render the README
 quarto render README.qmd
 ```
+
+**To regenerate all theme gallery previews** (after modifying a theme or
+the example CV):
+
+``` bash
+uv run scripts/generate_gallery.py
+```
+
+This renders `example.qmd` once per theme, converts the first page to
+PNG, and saves each result to `assets/img/preview-{theme}.png`.
+Intermediate Typst files are cleaned up automatically.
 
 **Requirements:**
 
@@ -443,31 +501,58 @@ cv-layout:
 
 ## Body Content
 
-### Name & Title Block
+### Name, Title & Objective
 
-At the top of the document, a raw Typst block sets the name and
-position:
+Define your name, job title and objective directly in the YAML front
+matter — no raw Typst required. Colors automatically inherit from the
+active theme and update when you switch themes.
 
-```` markdown
-```{=typst}
-#text(size: 14pt, weight: "bold", fill: rgb("#000000"))[First Name Last Name]
-#v(0.15em)
-#text(size: 18pt, weight: "bold", fill: rgb("#2563eb"))[Job Title or Research Position]
-#v(0.5em)
+``` yaml
+cv-header:
+  name: "First Name Last Name"
+  title: "Job Title or Research Position"
+  objective: >-
+    Your professional goal. Describe your background, motivations
+    and what you are looking for in 2-3 sentences.
+  # Optional overrides (theme defaults apply if omitted):
+  # name-color: "#000000"
+  # name-size: "14pt"
+  # title-color: "#2563eb"           # defaults to cv-theme.main.title-color
+  # title-size: "18pt"
+  # objective-bg: "#f1f5f9"          # defaults to cv-layout.sidebar-bg
+  # objective-stroke-color: "#2563eb"# defaults to cv-theme.main.title-color
+  # objective-stroke-width: "2pt"
 ```
-````
 
-### Highlight / Objective Block
+| Field | Default | Description |
+|----|----|----|
+| `name` | — | Full name (bold, large) |
+| `title` | — | Job title or position (bold, accent color) |
+| `objective` | — | Short paragraph shown in a styled block |
+| `name-color` | `main.text-color` | Name text color |
+| `name-size` | `14pt` | Name font size |
+| `title-color` | `main.title-color` | Title color (inherits from theme) |
+| `title-size` | `18pt` | Title font size |
+| `objective-bg` | `sidebar-bg` | Objective block background |
+| `objective-stroke-color` | `main.title-color` | Objective block border color |
+| `objective-stroke-width` | `2pt` | Objective block border width |
 
-A styled callout block for an objective or summary:
+Theme-level defaults for these colors can also be set under
+`cv-theme.header` in a theme file or in your document’s YAML (overrides
+the theme file, overridden by `cv-header` above):
 
-``` markdown
-::: {.block fill=rgb("#f1f5f9") inset="8pt" radius="4pt" stroke="2pt + rgb(\"#2563eb\")"}
-
-**Objective:** Your professional goal here.
-
-:::
+``` yaml
+cv-theme:
+  header:
+    name-color: "#0f172a"
+    title-color: "#2563eb"
+    objective-bg: "#eff6ff"
+    objective-stroke-color: "#2563eb"
+    objective-stroke-width: "2pt"
 ```
+
+Fallback chain for each color/size: `cv-header.*` (per-doc) →
+`cv-theme.header.*` (per-theme) → computed theme default
 
 ### Timeline Sections
 
@@ -605,10 +690,12 @@ The `timeline-section` function and its dot/line styling are defined in
     ├── template.qmd              # Your CV document (edit this)
     ├── _quarto.yml               # Project config — triggers post-render scripts
     ├── pyproject.toml            # Python deps (pypdfium2, pyyaml, pikepdf) for uv
+    ├── example.qmd               # Filled-in example CV (Marie Dupont) — gallery source
     ├── scripts/
     │   ├── rename_output.py      # Post-render: copies <name>.pdf → CV_Name_Date.pdf
     │   ├── compress_pdf.py       # Post-render: compresses CV_Name_Date.pdf (pikepdf)
-    │   └── convert_preview.py   # Converts <name>.pdf → assets/img/preview.png
+    │   ├── convert_preview.py   # Converts <name>.pdf → assets/img/preview.png
+    │   └── generate_gallery.py  # Renders example.qmd per theme → assets/img/preview-{theme}.png
     ├── assets/
     │   └── img/
     │       └── photo.png         # Your profile photo
