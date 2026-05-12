@@ -21,13 +21,13 @@ execute:
 # =============================================================================
 
 metadata-files:
-  - themes/classic-blue.yml
+  - ../_extensions/quarto-cv/themes/classic-blue.yml
 
 # =============================================================================
 # Personal Info
 # =============================================================================
 sidebar:
-  photo: "assets/img/image.png"
+  photo: "../assets/img/image.png"
   phone: "+33 7 98 76 54 32"
   email: "alex.chen@example.com"
   birthdate: "22/07/1998"

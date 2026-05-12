@@ -1,0 +1,5 @@
+# Font path configuration for examples rendered from this directory
+# This allows Quarto to find fonts when rendering from examples/ subdirectory
+metadata:
+  font-paths:
+    - ../_extensions/quarto-cv/fonts

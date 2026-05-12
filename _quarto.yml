@@ -3,3 +3,9 @@ project:
   post-render:
     - uv run scripts/rename_output.py
     - uv run scripts/compress_pdf.py
+
+# Global metadata for Typst font resolution
+metadata:
+  font-paths:
+    - _extensions/quarto-cv/fonts
+    - _extensions/vgoupille/quarto-cv/fonts

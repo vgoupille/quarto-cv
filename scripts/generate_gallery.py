@@ -1,5 +1,5 @@
 """
-Render example.qmd with each built-in theme and save the first page as
+Render examples/example.qmd with each built-in theme and save the first page as
 assets/img/preview-{theme}.png.
 
 Usage:
@@ -15,27 +15,31 @@ from pathlib import Path
 import pypdfium2 as pdfium
 
 THEMES = ["classic-blue", "forest-green", "minimal-dark", "warm-terracotta"]
-SOURCE = Path("example.qmd")
+SOURCE = Path("examples/example.qmd")
 OUT_DIR = Path("assets/img")
 
 
 def set_active_theme(content: str, theme: str) -> str:
     """Ensure only the target theme line is active in metadata-files."""
+    # Normalize relative paths from examples/ to root
+    content = content.replace("../_extensions/", "_extensions/")
+    content = content.replace("../assets/", "assets/")
+
     lines = content.splitlines()
     result = []
     for line in lines:
-        active = re.match(r"^\s+- themes/([\w-]+)\.yml", line)
-        commented = re.match(r"^\s+#\s*-\s*themes/([\w-]+)\.yml", line)
+        active = re.match(r"^\s+- _extensions/quarto-cv/themes/([\w-]+)\.yml", line)
+        commented = re.match(r"^\s+#\s*-\s*_extensions/quarto-cv/themes/([\w-]+)\.yml", line)
         if active:
             t = active.group(1)
             if t == theme:
                 result.append(line)
             else:
-                result.append(re.sub(r"(\s+)- (themes/)", r"\1# - \2", line))
+                result.append(re.sub(r"(\s+)- (_extensions/quarto-cv/themes/)", r"\1# - \2", line))
         elif commented:
             t = commented.group(1)
             if t == theme:
-                result.append(re.sub(r"(\s+)#\s*- (themes/)", r"\1- \2", line))
+                result.append(re.sub(r"(\s+)#\s*- (_extensions/quarto-cv/themes/)", r"\1- \2", line))
             else:
                 result.append(line)
         else:

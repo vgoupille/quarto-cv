@@ -12,16 +12,16 @@ execute:
 # STEP 1 — Choose a theme (uncomment one line)
 # =============================================================================
 metadata-files:
-  - themes/classic-blue.yml    # blue professional (default)
-  # - themes/forest-green.yml    # natural green
-  # - themes/minimal-dark.yml    # dark sidebar
-  # - themes/warm-terracotta.yml # earthy terracotta
+  - ../_extensions/quarto-cv/themes/classic-blue.yml    # blue professional (default)
+  # - ../_extensions/quarto-cv/themes/forest-green.yml    # natural green
+  # - ../_extensions/quarto-cv/themes/minimal-dark.yml    # dark sidebar
+  # - ../_extensions/quarto-cv/themes/warm-terracotta.yml # earthy terracotta
 
 # =============================================================================
 # STEP 2 — Personal info
 # =============================================================================
 sidebar:
-  photo: "assets/img/image.png"
+  photo: "../assets/img/image.png"
   phone: "+33 6 12 34 56 78"
   email: "marie.dupont@example.com"
   birthdate: "15/03/1995"
