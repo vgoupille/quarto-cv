@@ -61,12 +61,12 @@ Everything is customizable — colors, fonts, layouts, even the CV structure its
 <tr>
   <td align="center">
     <img src="assets/img/preview-advanced.png" alt="Advanced customization example"/><br>
-    <b>Advanced Example</b> — Intentionally cluttered with custom colors, square photo, 45% sidebar, multi-level timeline, and 2-column layouts to demonstrate all features. Not a design example, but a capability showcase. <a href="examples/advanced-examples/example.qmd">View source</a>.
+    <b>Advanced Example</b> — Intentionally cluttered with custom colors, square photo, 45% sidebar, multi-level timeline, and 2-column layouts to demonstrate all features. Not a design example, but a capability showcase. <a href="examples/advanced-example.qmd">View source</a>.
   </td>
 </tr>
 </table>
 
-The `examples/advanced-examples/example.qmd` demonstrates what you *can* do:
+The `examples/advanced-example.qmd` demonstrates what you *can* do:
 - Per-section custom colors and spacing
 - Photo shape customization (circle or square)
 - Wider or narrower sidebar with adjusted proportions
@@ -692,7 +692,7 @@ your-cv/
 
 ## Requirements
 
-- [Quarto](https://quarto.org) ≥ 1.4
+- [Quarto](https://quarto.org) ≥ 1.9
 - Typst (bundled with Quarto ≥ 1.4, no separate install needed)
 
 The fonts **Poppins** and **Inter** are bundled inside the extension — no system installation required. Any other font can be used by installing it on the system and setting `main-font` in `cv-theme`.
