@@ -60,11 +60,49 @@ Activate a theme with one line:
 
 ``` yaml
 metadata-files:
-  - themes/classic-blue.yml    # blue professional (default)
-# - themes/forest-green.yml    # natural green
-# - themes/minimal-dark.yml    # dark sidebar
-# - themes/warm-terracotta.yml # earthy terracotta
+  - _extensions/quarto-cv/themes/classic-blue.yml    # blue professional (default)
+# - _extensions/quarto-cv/themes/forest-green.yml    # natural green
+# - _extensions/quarto-cv/themes/minimal-dark.yml    # dark sidebar
+# - _extensions/quarto-cv/themes/warm-terracotta.yml # earthy terracotta
 ```
+
+------------------------------------------------------------------------
+
+## Advanced Customization
+
+Everything is customizable — colors, fonts, layouts, even the CV
+structure itself. The example below is intentionally over-customized to
+showcase **what’s possible**, not what looks best:
+
+<table>
+
+<tr>
+
+<td align="center">
+
+<img src="assets/img/preview-advanced.png" alt="Advanced customization example"/><br>
+<b>Advanced Example</b> — Intentionally cluttered with custom colors,
+square photo, 45% sidebar, multi-level timeline, and 2-column layouts to
+demonstrate all features. Not a design example, but a capability
+showcase. <a href="examples/advanced-example.qmd">View source</a>.
+</td>
+
+</tr>
+
+</table>
+
+The `examples/advanced-example.qmd` demonstrates what you *can* do: -
+Per-section custom colors and spacing - Photo shape customization
+(circle or square) - Wider or narrower sidebar with adjusted
+proportions - Multi-level timeline for Education/Experience - 2-column
+layouts with Python/R visualizations - Complete style overrides at every
+level
+
+💡 **Use the theme presets or template.qmd as your starting point** —
+they follow design best practices. The advanced example is for reference
+only.
+
+See [Complete YAML Reference](#complete-yaml-reference) for all options.
 
 ------------------------------------------------------------------------
 
@@ -165,8 +203,8 @@ the example CV):
 uv run scripts/generate_gallery.py
 ```
 
-This renders `example.qmd` once per theme, converts the first page to
-PNG, and saves each result to `assets/img/preview-{theme}.png`.
+This renders `examples/example.qmd` once per theme, converts the first
+page to PNG, and saves each result to `assets/img/preview-{theme}.png`.
 Intermediate Typst files are cleaned up automatically.
 
 **Requirements:**
@@ -240,15 +278,16 @@ sidebar:
 
 ### Theme Presets
 
-Four ready-to-use themes are bundled in the `themes/` directory.
+Four ready-to-use themes are bundled in the
+`_extensions/quarto-cv/themes/` directory (part of the extension).
 Activate one by adding a single line to your frontmatter:
 
 ``` yaml
 metadata-files:
-  - themes/classic-blue.yml    # blue professional (default)
-# - themes/forest-green.yml    # natural green
-# - themes/minimal-dark.yml    # dark sidebar
-# - themes/warm-terracotta.yml # earthy terracotta
+  - _extensions/quarto-cv/themes/classic-blue.yml    # blue professional (default)
+# - _extensions/quarto-cv/themes/forest-green.yml    # natural green
+# - _extensions/quarto-cv/themes/minimal-dark.yml    # dark sidebar
+# - _extensions/quarto-cv/themes/warm-terracotta.yml # earthy terracotta
 ```
 
 | Theme             | Primary color          | Sidebar background     | Font    |
@@ -698,40 +737,42 @@ The `timeline-section` function and its dot/line styling are defined in
 ## Project Structure
 
     your-cv/
-    ├── template.qmd              # Your CV document (edit this)
-    ├── _quarto.yml               # Project config — triggers post-render scripts
-    ├── pyproject.toml            # Python deps (pypdfium2, pyyaml, pikepdf) for uv
-    ├── example.qmd               # Filled-in example CV (Marie Dupont) — gallery source
+    ├── template.qmd                    # Your CV document (edit this)
+    ├── examples/
+    │   ├── example.qmd                 # Filled-in example CV (Marie Dupont)
+    │   └── advanced-example.qmd        # Advanced customization showcase
+    ├── _quarto.yml                     # Project config — triggers post-render scripts
+    ├── pyproject.toml                  # Python deps (pypdfium2, pyyaml, pikepdf) for uv
     ├── scripts/
-    │   ├── rename_output.py      # Post-render: copies <name>.pdf → CV_Name_Date.pdf
-    │   ├── compress_pdf.py       # Post-render: compresses CV_Name_Date.pdf (pikepdf)
-    │   ├── convert_preview.py   # Converts <name>.pdf → assets/img/preview.png
-    │   └── generate_gallery.py  # Renders example.qmd per theme → assets/img/preview-{theme}.png
+    │   ├── rename_output.py            # Post-render: copies <name>.pdf → CV_Name_Date.pdf
+    │   ├── compress_pdf.py             # Post-render: compresses CV_Name_Date.pdf (pikepdf)
+    │   ├── convert_preview.py          # Converts <name>.pdf → assets/img/preview.png
+    │   └── generate_gallery.py         # Renders examples per theme → assets/img/preview-{theme}.png
     ├── assets/
     │   └── img/
-    │       └── photo.png         # Your profile photo
-    ├── themes/
-    │   ├── classic-blue.yml      # Theme preset: blue professional (default)
-    │   ├── forest-green.yml      # Theme preset: natural green
-    │   ├── minimal-dark.yml      # Theme preset: dark sidebar
-    │   └── warm-terracotta.yml   # Theme preset: earthy terracotta
+    │       └── photo.png               # Your profile photo
     ├── _extensions/
     │   └── quarto-cv/
-    │       ├── _extension.yml      # Extension metadata
-    │       ├── typst-template.typ  # Typst function definitions (cv layout engine)
-    │       ├── typst-show.typ      # Pandoc template — wires YAML metadata to cv()
-    │       ├── brand.yml           # Typography defaults (Quarto brand schema)
-    │       ├── icons.lua           # SVG icon injection Lua filter
-    │       ├── timeline.lua        # Timeline Lua filter
-    │       ├── fonts/              # Bundled Poppins & Inter TTF fonts
-    │       └── icons/              # SVG contact icons (Bootstrap Icons)
-    └── template.pdf              # Latest render (preview — tracked in git)
+    │       ├── _extension.yml          # Extension metadata
+    │       ├── typst-template.typ      # Typst function definitions (cv layout engine)
+    │       ├── typst-show.typ          # Pandoc template — wires YAML metadata to cv()
+    │       ├── brand.yml               # Typography defaults (Quarto brand schema)
+    │       ├── icons.lua               # SVG icon injection Lua filter
+    │       ├── timeline.lua            # Timeline Lua filter
+    │       ├── themes/                 # Theme presets (bundled in extension)
+    │       │   ├── classic-blue.yml
+    │       │   ├── forest-green.yml
+    │       │   ├── minimal-dark.yml
+    │       │   └── warm-terracotta.yml
+    │       ├── fonts/                  # Bundled Poppins & Inter TTF fonts
+    │       └── icons/                  # SVG contact icons (Bootstrap Icons)
+    └── template.pdf                    # Latest render (preview — tracked in git)
 
 ------------------------------------------------------------------------
 
 ## Requirements
 
-- [Quarto](https://quarto.org) ≥ 1.4
+- [Quarto](https://quarto.org) ≥ 1.9
 - Typst (bundled with Quarto ≥ 1.4, no separate install needed)
 
 The fonts **Poppins** and **Inter** are bundled inside the extension —
